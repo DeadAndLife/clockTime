@@ -10,11 +10,37 @@
 
 @implementation NSString (timeStamp)
 
-+ (NSString *)timeRangeWithTimeStamp:(NSInteger)timeStamp {
+
++ (struct TimeRange)timeRangeWithtarget:(enum TimeScope)target {
     
-    NSString *string;
+    struct TimeRange timeRange;
     
-    return string;
+    NSString *dateString = [NSString stringForTimeStamp];
+    
+    if (target == oneDay) {//当前
+        
+        
+        
+    } else if (target == currentMonth) {//当月
+        
+        
+        
+    } else if (target == precedingMonth) {//上月
+        
+        
+        
+    }
+    
+    return timeRange;
+    
+}
+
++ (NSString *)stringForTimeStamp {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+    
+    return [dateFormatter stringFromDate:[NSDate date]];
     
 }
 

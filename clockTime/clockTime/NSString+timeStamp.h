@@ -11,6 +11,9 @@
 
 @interface NSString (timeStamp)
 
-+ (timeRange)timeRangeWithTimeStamp:(NSInteger)timeStamp;
+//target表示查询的范围，0:当天，1:当月，2:上月
++ (struct TimeRange)timeRangeWithtarget:(enum TimeScope)target;
+
++ (NSString *)stringForTimeStamp;
 
 @end
