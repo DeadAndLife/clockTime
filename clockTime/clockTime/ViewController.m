@@ -51,14 +51,14 @@
     
     NSDate *now = [NSDate date];
     
-    //NSString *minValue = ;
-    //
-    //[QDDataBaseTool selectStatementsSql:SELECT_ALL(<#minValue#>, <#maxValue#>)
-    //                     withParsmeters:nil
-    //                            forMode:@"QDModel"
-    //                              block:^(NSMutableArray *resposeOjbc, NSString *errorMsg) {
-    //
-    //}];
+    NSString *minValue = ;
+    
+    [QDDataBaseTool selectStatementsSql:SELECT_ALL(<#minValue#>, <#maxValue#>)
+                         withParsmeters:nil
+                                forMode:@"QDModel"
+                                  block:^(NSMutableArray *resposeOjbc, NSString *errorMsg) {
+    
+    }];
     
 }
 

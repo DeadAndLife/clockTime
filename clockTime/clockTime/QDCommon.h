@@ -10,14 +10,15 @@
 #define QDCommon_h
 
 struct TimeRange {
-    NSInteger               minTime;
-    NSInteger               maxTime;
+    NSInteger               minTime;//最小时间
+    NSInteger               maxTime;//最大时间
 };
 
 enum TimeScope {
-    oneDay,
-    currentMonth,
-    precedingMonth
+    oneDay,//当天信息
+    yesterday,//昨天信息
+    currentMonth,//本月信息
+    precedingMonth//上月信息
 };
 
 static NSString * const kSignInTime = @"signInTime";//签到时间
