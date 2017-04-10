@@ -18,10 +18,11 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
-        _signInTime = [dict[kSignInTime] integerValue];
-        _signOutTime = [dict[kSignOutTime] integerValue];
-        _workDuration = [dict[kWorkDuration] integerValue];
-        _vacationTime = [dict[kVacationTime] integerValue];
+        _todayDate = dict[kTodayDate];
+        _signInTime = dict[kSignInTime];
+        _signOutTime = dict[kSignOutTime];
+        _workDuration = dict[kWorkDuration];
+        _vacationTime = dict[kVacationTime];
         _knockOffTime = dict[kKnockOffTime];
     }
     return self;

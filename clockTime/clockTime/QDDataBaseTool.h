@@ -10,7 +10,7 @@
 #import "DataBaseTool.h"
 
 typedef void(^callFiniseh)(BOOL isOk,NSString *errorMsg);
-typedef void(^callResult)(NSMutableArray * resposeOjbc,NSString *errorMsg);
+typedef void(^callResult)(NSMutableArray * resposeObjc,NSString *errorMsg);
 
 @interface QDDataBaseTool : NSObject
 

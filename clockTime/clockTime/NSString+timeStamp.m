@@ -11,11 +11,11 @@
 @implementation NSString (timeStamp)
 
 
-+ (struct TimeRange)timeRangeWithtarget:(enum TimeScope)target {
++ (TimeRange)timeRangeWithtarget:(TimeScope)target {
     
-    struct TimeRange timeRange;
+    TimeRange timeRange;
     
-    NSString *dateString = [NSString stringForTimeStamp];
+    NSString *dateString = [NSString stringForTimeStamp:@"YYYY-MM-dd HH:mm:ss"];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
@@ -100,7 +100,7 @@
         timeRange.minTime = beginDate.timeIntervalSince1970;
         timeRange.maxTime = endDate.timeIntervalSince1970;
         
-    } else if (target == precedingMonth) {//上月
+    } else {//上月
         
         NSString *calendar = [dateString componentsSeparatedByString:@" "][0];
         
@@ -153,12 +153,63 @@
     
 }
 
-+ (NSString *)stringForTimeStamp {
++ (NSString *)stringForTimeStamp:(NSString *)dateFormat {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+    dateFormatter.dateFormat = dateFormat;
     
     return [dateFormatter stringFromDate:[NSDate date]];
+    
+}
+
+- (NSString *)stringByTimeStamp:(NSString *)dateFormat {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = dateFormat;
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self doubleValue]];
+    
+    return [dateFormatter stringFromDate:date];
+    
+}
+
++ (NSString *)workDurationBystartString:(NSString *)stratStr endString:(NSString *)endStr {
+    
+    double stratTime = stratStr.doubleValue;
+    double endTime = endStr.doubleValue;
+    
+    if ((endTime - stratTime) >= 28800.0f) {
+        
+        //减去午休时长
+        double siestaTime = 90 * 60;
+        return [NSString stringWithFormat:@"%0f", (endTime - stratTime - siestaTime)];
+        
+    } else {
+    
+        return [NSString stringWithFormat:@"%0f", (endTime - stratTime)];
+        
+    }
+    
+}
+
++ (NSString *)vacationTimeByLastVacation:(NSString *)lastVacation workDuration:(NSString *)workDuration {
+        
+    return [NSString stringWithFormat:@"%0f", lastVacation.doubleValue + workDuration.doubleValue - 28800.0f];
+
+}
+
+- (NSString *)durationString {
+    
+    NSInteger duration = self.integerValue;
+    if (duration < 0) {
+        duration = duration * -1;
+    }
+    
+    NSInteger second = duration % 60;
+    NSInteger minute = duration / 60 % 60;
+    NSInteger hour = duration / 60 / 60;
+    
+    return [NSString stringWithFormat:@"%ld:%02ld:%02ld", hour, minute, second];
     
 }
 

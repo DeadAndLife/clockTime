@@ -2,13 +2,19 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
+  - PNChart (0.8.9):
+    - UICountingLabel (~> 1.2.0)
+  - UICountingLabel (1.2.0)
 
 DEPENDENCIES:
   - FMDB
+  - PNChart
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2
+  UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-PODFILE CHECKSUM: 55a8b407bbe815b3d56420a12f8e1095edadcbcd
+PODFILE CHECKSUM: 907e756b1ec36cb4b5d59a6f8c9994f76028c216
 
 COCOAPODS: 1.2.1.beta.1

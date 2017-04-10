@@ -6,6 +6,7 @@
 target 'clockTime' do
 	
 	pod ‘FMDB’
+	pod 'PNChart'
 	
 end
 

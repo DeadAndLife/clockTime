@@ -10,17 +10,20 @@
 
 @interface QDModel : NSObject
 
+//日期
+@property (nonatomic, copy) NSString *todayDate;
+
 //签到时间
-@property (nonatomic) NSInteger signInTime;
+@property (nonatomic, copy) NSString *signInTime;
 
 //签退时间
-@property (nonatomic) NSInteger signOutTime;
+@property (nonatomic, copy) NSString *signOutTime;
 
 //今日工作时长
-@property (nonatomic) NSInteger workDuration;
+@property (nonatomic, copy) NSString *workDuration;
 
 //当前存休时长
-@property (nonatomic) NSInteger vacationTime;
+@property (nonatomic, copy) NSString *vacationTime;
 
 //理论下班时间
 @property (nonatomic, copy) NSString *knockOffTime;

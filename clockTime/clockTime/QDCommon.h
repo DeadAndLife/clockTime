@@ -9,18 +9,19 @@
 #ifndef QDCommon_h
 #define QDCommon_h
 
-struct TimeRange {
+typedef struct _TimeRange {
     NSInteger               minTime;//最小时间
     NSInteger               maxTime;//最大时间
-};
+}TimeRange;
 
-enum TimeScope {
+typedef NS_ENUM(NSInteger, TimeScope) {
     oneDay,//当天信息
     yesterday,//昨天信息
     currentMonth,//本月信息
-    precedingMonth//上月信息
+    precedingMonth,//上月信息
 };
 
+static NSString * const kTodayDate = @"todayDate";//签到时间
 static NSString * const kSignInTime = @"signInTime";//签到时间
 static NSString * const kSignOutTime = @"signOutTime";//签退时间
 static NSString * const kWorkDuration = @"workDuration";//今日工作时长
