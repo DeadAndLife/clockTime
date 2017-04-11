@@ -9,6 +9,9 @@
 #ifndef QDCommon_h
 #define QDCommon_h
 
+#define QYScreenW [UIScreen mainScreen].bounds.size.width
+#define QYScreenH [UIScreen mainScreen].bounds.size.height
+
 typedef struct _TimeRange {
     NSInteger               minTime;//最小时间
     NSInteger               maxTime;//最大时间

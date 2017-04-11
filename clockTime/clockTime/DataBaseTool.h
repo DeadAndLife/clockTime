@@ -37,6 +37,12 @@
 //查询所有的数据
 #define SELECT_ALL(minValue, maxValue) [NSString stringWithFormat:@"SELECT * from qiandao WHERE signInTime BETWEEN %ld AND %ld", (minValue), (maxValue)]
 
+#define SELECT_TODAY(todayDate) [NSString stringWithFormat:@"SELECT * from qiandao WHERE todayDate = '%@'", (todayDate)]
+
+#define SELECT_NEXT(todayDate) [NSString stringWithFormat:@"SELECT * from qiandao WHERE todayDate < '%@' ORDER BY todayDate desc limit 1", (todayDate)]
+
+#define SELECT_PREVIOUS(todayDate) [NSString stringWithFormat:@"SELECT * from qiandao WHERE todayDate > '%@' limit 1", (todayDate)]
+
 //删除数据
 #define DELETE_SQL(minValue, maxValue) [NSString stringWithFormat:@"DELETE from qiandao WHERE BETWEEN %ld AND %ld", (minValue), (maxValue)]
 

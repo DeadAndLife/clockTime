@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		445BAEA11E9CD3CD00FABB4C /* QDScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445BAEA01E9CD3CD00FABB4C /* QDScrollView.m */; };
+		445BAEA31E9CD3F800FABB4C /* QDScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445BAEA21E9CD3F800FABB4C /* QDScrollView.xib */; };
+		445BAEA71E9CD94400FABB4C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445BAEA51E9CD94400FABB4C /* HomeViewController.m */; };
+		445BAEA81E9CD94400FABB4C /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445BAEA61E9CD94400FABB4C /* HomeViewController.xib */; };
 		44634E9C1E88F4380002F2E2 /* QDDataBaseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634E9B1E88F4380002F2E2 /* QDDataBaseTool.m */; };
 		44634E9F1E88F4ED0002F2E2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 44634E9E1E88F4ED0002F2E2 /* libsqlite3.tbd */; };
 		44634EA21E88F5280002F2E2 /* QDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634EA11E88F5280002F2E2 /* QDModel.m */; };
 		44634EA51E8907980002F2E2 /* NSMutableDictionary+setObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634EA41E8907980002F2E2 /* NSMutableDictionary+setObj.m */; };
-		44634EA91E890EA60002F2E2 /* QDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634EA81E890EA60002F2E2 /* QDTableViewController.m */; };
 		44634EB01E890F820002F2E2 /* QDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634EAE1E890F820002F2E2 /* QDTableViewCell.m */; };
 		44634EB11E890F820002F2E2 /* QDTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44634EAF1E890F820002F2E2 /* QDTableViewCell.xib */; };
 		44634EB71E8913BF0002F2E2 /* NSString+timeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634EB61E8913BF0002F2E2 /* NSString+timeStamp.m */; };
@@ -26,6 +29,12 @@
 
 /* Begin PBXFileReference section */
 		21C9208E8805E6B190E7ABE0 /* libPods-clockTime.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clockTime.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		445BAE9F1E9CD3CD00FABB4C /* QDScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDScrollView.h; sourceTree = "<group>"; };
+		445BAEA01E9CD3CD00FABB4C /* QDScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDScrollView.m; sourceTree = "<group>"; };
+		445BAEA21E9CD3F800FABB4C /* QDScrollView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDScrollView.xib; sourceTree = "<group>"; };
+		445BAEA41E9CD94400FABB4C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		445BAEA51E9CD94400FABB4C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		445BAEA61E9CD94400FABB4C /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		44634E9A1E88F4380002F2E2 /* QDDataBaseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDDataBaseTool.h; sourceTree = "<group>"; };
 		44634E9B1E88F4380002F2E2 /* QDDataBaseTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDDataBaseTool.m; sourceTree = "<group>"; };
 		44634E9D1E88F4880002F2E2 /* DataBaseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseTool.h; sourceTree = "<group>"; };
@@ -35,8 +44,6 @@
 		44634EA31E8907980002F2E2 /* NSMutableDictionary+setObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+setObj.h"; sourceTree = "<group>"; };
 		44634EA41E8907980002F2E2 /* NSMutableDictionary+setObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+setObj.m"; sourceTree = "<group>"; };
 		44634EA61E8908A90002F2E2 /* QDCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCommon.h; sourceTree = "<group>"; };
-		44634EA71E890EA60002F2E2 /* QDTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDTableViewController.h; sourceTree = "<group>"; };
-		44634EA81E890EA60002F2E2 /* QDTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDTableViewController.m; sourceTree = "<group>"; };
 		44634EAD1E890F820002F2E2 /* QDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDTableViewCell.h; sourceTree = "<group>"; };
 		44634EAE1E890F820002F2E2 /* QDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDTableViewCell.m; sourceTree = "<group>"; };
 		44634EAF1E890F820002F2E2 /* QDTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDTableViewCell.xib; sourceTree = "<group>"; };
@@ -84,6 +91,9 @@
 				44634EAD1E890F820002F2E2 /* QDTableViewCell.h */,
 				44634EAE1E890F820002F2E2 /* QDTableViewCell.m */,
 				44634EAF1E890F820002F2E2 /* QDTableViewCell.xib */,
+				445BAE9F1E9CD3CD00FABB4C /* QDScrollView.h */,
+				445BAEA01E9CD3CD00FABB4C /* QDScrollView.m */,
+				445BAEA21E9CD3F800FABB4C /* QDScrollView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -93,8 +103,9 @@
 			children = (
 				44A4937F1E88B76E0076B167 /* ViewController.h */,
 				44A493801E88B76E0076B167 /* ViewController.m */,
-				44634EA71E890EA60002F2E2 /* QDTableViewController.h */,
-				44634EA81E890EA60002F2E2 /* QDTableViewController.m */,
+				445BAEA41E9CD94400FABB4C /* HomeViewController.h */,
+				445BAEA51E9CD94400FABB4C /* HomeViewController.m */,
+				445BAEA61E9CD94400FABB4C /* HomeViewController.xib */,
 				44A493821E88B76E0076B167 /* Main.storyboard */,
 				44A493871E88B76E0076B167 /* LaunchScreen.storyboard */,
 			);
@@ -249,7 +260,9 @@
 				44634EB11E890F820002F2E2 /* QDTableViewCell.xib in Resources */,
 				44A493891E88B76E0076B167 /* LaunchScreen.storyboard in Resources */,
 				44A493861E88B76E0076B167 /* Assets.xcassets in Resources */,
+				445BAEA31E9CD3F800FABB4C /* QDScrollView.xib in Resources */,
 				44A493841E88B76E0076B167 /* Main.storyboard in Resources */,
+				445BAEA81E9CD94400FABB4C /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,12 +324,13 @@
 				44634EA21E88F5280002F2E2 /* QDModel.m in Sources */,
 				44A493811E88B76E0076B167 /* ViewController.m in Sources */,
 				44A4937E1E88B76E0076B167 /* AppDelegate.m in Sources */,
+				445BAEA71E9CD94400FABB4C /* HomeViewController.m in Sources */,
 				44A4937B1E88B76E0076B167 /* main.m in Sources */,
 				44634EB01E890F820002F2E2 /* QDTableViewCell.m in Sources */,
-				44634EA91E890EA60002F2E2 /* QDTableViewController.m in Sources */,
 				44634EB71E8913BF0002F2E2 /* NSString+timeStamp.m in Sources */,
 				44634EA51E8907980002F2E2 /* NSMutableDictionary+setObj.m in Sources */,
 				44634E9C1E88F4380002F2E2 /* QDDataBaseTool.m in Sources */,
+				445BAEA11E9CD3CD00FABB4C /* QDScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

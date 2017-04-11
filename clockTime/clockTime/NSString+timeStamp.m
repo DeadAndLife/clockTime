@@ -173,20 +173,39 @@
     
 }
 
+- (NSInteger)timeStampWithDateFormat {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"HH:mm:ss";
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self doubleValue]];
+    
+    NSString *timeStamp = [dateFormatter stringFromDate:date];
+    
+    NSArray *timeArr = [timeStamp componentsSeparatedByString:@":"];
+    
+    NSInteger hour = [timeArr[0] integerValue];
+    NSInteger minute = [timeArr[1] integerValue];
+    NSInteger second = [timeArr[2] integerValue];
+    
+    return hour * 60 * 60 + minute * 60 + second;
+    
+}
+
 + (NSString *)workDurationBystartString:(NSString *)stratStr endString:(NSString *)endStr {
     
-    double stratTime = stratStr.doubleValue;
-    double endTime = endStr.doubleValue;
+    NSInteger stratTime = [stratStr timeStampWithDateFormat];
+    NSInteger endTime = [endStr timeStampWithDateFormat];
     
-    if ((endTime - stratTime) >= 28800.0f) {
+    if (stratTime < 12 * 60 * 60 && endTime > 12 * 60 * 60) {//签到在上午且签退在下午，需扣除午休时间
         
         //减去午休时长
-        double siestaTime = 90 * 60;
-        return [NSString stringWithFormat:@"%0f", (endTime - stratTime - siestaTime)];
+        NSUInteger siestaTime = 90 * 60;
+        return [NSString stringWithFormat:@"%0ld", (endTime - stratTime - siestaTime)];
         
     } else {
     
-        return [NSString stringWithFormat:@"%0f", (endTime - stratTime)];
+        return [NSString stringWithFormat:@"%0ld", (endTime - stratTime)];
         
     }
     
@@ -209,7 +228,7 @@
     NSInteger minute = duration / 60 % 60;
     NSInteger hour = duration / 60 / 60;
     
-    return [NSString stringWithFormat:@"%ld:%02ld:%02ld", hour, minute, second];
+    return self.integerValue < 0 ? [NSString stringWithFormat:@"-%ld:%02ld:%02ld", hour, minute, second] : [NSString stringWithFormat:@"%ld:%02ld:%02ld", hour, minute, second];
     
 }
 

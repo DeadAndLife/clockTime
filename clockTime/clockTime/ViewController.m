@@ -7,26 +7,21 @@
 //
 
 #import "ViewController.h"
-#import "QDDataBaseTool.h"
 #import "QDModel.h"
+#import "QDScrollView.h"
+#import "QDDataBaseTool.h"
 #import "QDCommon.h"
 #import "NSString+timeStamp.h"
 
-#define todayRange [NSString timeRangeWithtarget:oneDay]
+@interface ViewController ()<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
-#define yesterdayRange [NSString timeRangeWithtarget:yesterday]
-
-@interface ViewController ()
-
-@property (weak, nonatomic) IBOutlet UIButton *signInButton;
-
-@property (weak, nonatomic) IBOutlet UIButton *signOutButton;
+@property (nonatomic, strong) UIPageViewController *pageViewController;
 
 @property (weak, nonatomic) IBOutlet UILabel *vacationTimeLabel;
-//今日记录
-@property (nonatomic, strong) QDModel *todayModel;
-//昨日记录
-@property (nonatomic, strong) QDModel *yesterdayModel;
+@property (weak, nonatomic) IBOutlet UIScrollView *homeScrollView;
+
+//临近三条的记录(只记录日期)
+@property (nonatomic, strong) NSMutableArray *dateArray;
 
 @end
 
@@ -35,10 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.signInButton addTarget:self action:@selector(signInButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.signOutButton addTarget:self action:@selector(signOutButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self vacationTimeInit];
+    [self navigationInit];
+
+    //添加pageViewController
+    [self addChildViewController:self.pageViewController];
+    [self.view addSubview:self.pageViewController.view];
     
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -47,8 +43,6 @@
     
     [super viewWillAppear:animated];
     
-    [self dataBaseInit];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,92 +50,104 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)navigationInit {
+    
+    UIBarButtonItem *left01 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"calendar"] style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *left02 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"previous"] style:UIBarButtonItemStylePlain target:self action:@selector(previousButtonClick:)];
+    
+    
+    UIBarButtonItem *right01 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] landscapeImagePhone:[UIImage imageNamed:@"calender"] style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *right02 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"] style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonClick:)];
+    right02.enabled = NO;
+    
+    self.navigationItem.leftBarButtonItems = @[left01, left02];
+    self.navigationItem.rightBarButtonItems = @[right01, right02];
+    
+    self.navigationItem.title = [NSString stringForTimeStamp:@"EEE MM-dd"];
+    
+}
+
+//pageViewController
+- (UIPageViewController *)pageViewController{
+    if (_pageViewController == nil) {
+        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey:@(10.0)}];
+        
+        //设置数据源和代理
+        _pageViewController.dataSource = self;
+        _pageViewController.delegate = self;
+        
+        //设置内容控制器
+        [_pageViewController setViewControllers:@[self.willDisPlayVCS[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    }
+    return _pageViewController;
+}
+
+
+//- (void)addScrollViewForView{
+//    //创建并添加scrollView
+//    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, (QYScreenW + 25.0), QYScreenH)];
+//    [self.view addSubview:scrollView];
+//    
+//    //设置属性
+//    scrollView.contentSize = CGSizeMake((QYScreenW + 25.0) * 3, QYScreenH);
+//    
+//    scrollView.pagingEnabled = YES;
+//    
+//    scrollView.delegate = self;
+//    
+//    scrollView.backgroundColor = [UIColor blackColor];
+//    
+//    scrollView.showsHorizontalScrollIndicator = NO;
+//    
+//    _homeScrollView = scrollView;
+//    
+//}
+//
+//-(void)addZoomScrollViewForScrollView{
+//    for (int i = 0; i < 3; i++) {
+//        //创建并添加zoomScrollView
+//        QDScrollView *zoomScrollView = [[QDScrollView alloc] initWithFrame:CGRectMake((QYScreenW + 25.0) * i, 0, QYScreenW, QYScreenH)];
+//        [_homeScrollView addSubview:zoomScrollView];
+//        zoomScrollView.tag = 1000 + i;
+//    }
+//}
+//
+////配置ZoomScrollView的属性(图片和偏移量)
+//-(void)configurationPropertyForZoomScrollViews{
+//    QDScrollView *leftZoomSC = [_homeScrollView viewWithTag:1000];
+//    QDScrollView *middleZoomSC = [_homeScrollView viewWithTag:1001];
+//    QDScrollView *rightZoomSC = [_homeScrollView viewWithTag:1002];
+//    
+//    //设置模型
+//    
+//    
+//    //设置内容的偏移量
+//    _homeScrollView.contentOffset = CGPointMake((QYScreenW + 25.0), 0);
+//}
+
 #pragma mark - 数据库相关
-- (void)dataBaseInit {
-    
-    [self yesterdayModelInit];
-    [self todayModelInit];
 
+- (void)homeScrollViewInit {
     
-}
-
-- (void)todayModelInit {
     
-    __weak typeof(self) weakSelf = self;
-    
-    TimeRange timeRange = todayRange;
-    
-    [QDDataBaseTool selectStatementsSql:SELECT_ALL(timeRange.minTime, timeRange.maxTime)
-                         withParsmeters:nil
-                                forMode:@"QDModel"
-                                  block:^(NSMutableArray *resposeObjc, NSString *errorMsg) {
-                                      
-                                      if (resposeObjc.count) {
-                                          
-                                          weakSelf.todayModel = resposeObjc[0];
-                                          
-                                          if (weakSelf.todayModel.signInTime) {
-                                              
-                                              weakSelf.signInButton.enabled = NO;
-                                              
-                                              [weakSelf.signInButton setTitle:[NSString stringWithFormat:@"已签到\n%@", [weakSelf.todayModel.signInTime stringByTimeStamp:@"HH:mm:ss"]] forState:UIControlStateDisabled];
-                                              [weakSelf.signInButton.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-                                              [weakSelf.signInButton.titleLabel setNumberOfLines:2];
-                                              
-                                          }
-                                          
-                                          if (weakSelf.todayModel.signOutTime) {
-                                              
-                                              [weakSelf.signOutButton setTitle:[NSString stringWithFormat:@"已签退\n%@", [weakSelf.todayModel.signOutTime stringByTimeStamp:@"HH:mm:ss"]] forState:UIControlStateNormal];
-                                              [weakSelf.signOutButton.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-                                              [weakSelf.signOutButton.titleLabel setNumberOfLines:2];
-                                              
-                                              if (_todayModel.vacationTime.doubleValue <= 0) {
-                                                  weakSelf.vacationTimeLabel.textColor = [UIColor redColor];
-                                              } else {
-                                                  weakSelf.vacationTimeLabel.textColor = [UIColor greenColor];
-                                              }
-                                              weakSelf.vacationTimeLabel.text = [_todayModel.vacationTime durationString];
-                                              
-                                          }
-                                          
-                                      } else {
-                                          
-                                          NSLog(@"%@", errorMsg);
-                                          
-                                      }
-                                      
-                                  }];
-    
-}
-
-- (void)yesterdayModelInit {
-    
-    __weak typeof(self) weakSelf = self;
-    
-    TimeRange timeRange = yesterdayRange;
-    
-    [QDDataBaseTool selectStatementsSql:SELECT_ALL(timeRange.minTime, timeRange.maxTime)
-                         withParsmeters:nil
-                                forMode:@"QDModel"
-                                  block:^(NSMutableArray *resposeObjc, NSString *errorMsg) {
-                                      
-                                      if (resposeObjc.count) {
-                                          
-                                          weakSelf.yesterdayModel = resposeObjc[0];
-                                          [weakSelf vacationTimeInit];
-
-                                      } else {
-                                          
-                                          NSLog(@"%@", errorMsg);
-                                          
-                                      }
-                                      
-                                  }];
     
 }
 
 #pragma mark - 按钮事件处理
+//上一天
+- (IBAction)previousButtonClick:(UIBarButtonItem *)sender {
+    
+    
+    
+}
+
+//下一天
+- (IBAction)nextButtonClick:(UIBarButtonItem *)sender {
+    
+    
+    
+}
+
 //签到
 - (IBAction)signInButtonClick:(UIButton *)sender {
     
