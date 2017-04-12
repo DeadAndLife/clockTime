@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rvo-DP-QZX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vcb-aZ-Ie1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,10 +9,28 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="xYv-Th-Qsv">
+            <objects>
+                <tabBarController id="vcb-aZ-Ie1" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="885-yq-N9a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="rvo-DP-QZX" kind="relationship" relationship="viewControllers" id="Vic-UO-YiU"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SDy-Ov-KiW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2331" y="-228"/>
+        </scene>
+        <!--主页-->
         <scene sceneID="aE7-AV-CAm">
             <objects>
                 <navigationController id="rvo-DP-QZX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="主页" image="home" id="lpe-Kl-V84"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0KY-yf-ocv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -23,7 +41,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EpH-MI-nvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-697" y="36"/>
+            <point key="canvasLocation" x="-1458" y="-228"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="RLo-jf-xJy">
@@ -36,13 +54,30 @@
                     <view key="view" contentMode="scaleToFill" id="Sg3-PP-dmO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOV-Q8-319">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hOV-Q8-319" firstAttribute="leading" secondItem="Sg3-PP-dmO" secondAttribute="leading" id="G6g-bU-wcE"/>
+                            <constraint firstAttribute="trailing" secondItem="hOV-Q8-319" secondAttribute="trailing" id="J5a-iL-82A"/>
+                            <constraint firstItem="h7K-b8-dzr" firstAttribute="top" secondItem="hOV-Q8-319" secondAttribute="bottom" id="L7g-bE-Cuk"/>
+                            <constraint firstItem="hOV-Q8-319" firstAttribute="top" secondItem="yKd-k3-81S" secondAttribute="bottom" id="hWV-ym-vP1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DKg-pk-F8Q"/>
+                    <connections>
+                        <outlet property="homeScrollView" destination="hOV-Q8-319" id="XwT-zq-WYA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1m-H6-8cx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="154" y="36"/>
+            <point key="canvasLocation" x="-700" y="-228"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="home" width="32" height="32"/>
+    </resources>
 </document>

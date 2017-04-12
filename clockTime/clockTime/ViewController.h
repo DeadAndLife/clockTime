@@ -10,6 +10,9 @@
 
 @interface ViewController : UIViewController
 
+//进来时的时间，YYYY-MM-dd格式
+@property (nonatomic, copy) NSString *todayDate;
+
 
 @end
 

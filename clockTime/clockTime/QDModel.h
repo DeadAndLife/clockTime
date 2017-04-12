@@ -31,4 +31,6 @@
 + (instancetype)qiandaoModelWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
++ (instancetype)todayModelForNullAttributes;
+
 @end

@@ -9,6 +9,7 @@
 #import "QDModel.h"
 #import "QDCommon.h"
 #import "QDDataBaseTool.h"
+#import "NSString+timeStamp.h"
 
 @implementation QDModel
 
@@ -26,6 +27,20 @@
         _knockOffTime = dict[kKnockOffTime];
     }
     return self;
+}
+
++ (instancetype)todayModelForNullAttributes {
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [dict setValue:[NSString stringForTimeStamp:@"YYYY-MM-dd"] forKey:kTodayDate];
+    [dict setValue:@"0" forKey:kSignInTime];
+    [dict setValue:@"0" forKey:kSignOutTime];
+    [dict setValue:@"0" forKey:kWorkDuration];
+    [dict setValue:@"0" forKey:kVacationTime];
+    [dict setValue:@"0" forKey:kKnockOffTime];
+    
+    return [self qiandaoModelWithDictionary:dict];
 }
 
 @end

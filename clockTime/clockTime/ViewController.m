@@ -13,29 +13,56 @@
 #import "QDCommon.h"
 #import "NSString+timeStamp.h"
 
-@interface ViewController ()<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
+@interface ViewController ()<UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIPageViewController *pageViewController;
+@property (nonatomic, strong) UIBarButtonItem *nextBarButton;
 
-@property (weak, nonatomic) IBOutlet UILabel *vacationTimeLabel;
+@property (nonatomic, strong) UIBarButtonItem *previousBarButton;
+
+@property (nonatomic, strong) QDModel *yesterdayModel;
+
+@property (nonatomic, strong) QDModel *todayModel;
+
+@property (nonatomic, strong) QDModel *tomorrowModel;
+
+@property (nonatomic)         NSInteger currentPage;        //当前页
+
 @property (weak, nonatomic) IBOutlet UIScrollView *homeScrollView;
-
-//临近三条的记录(只记录日期)
-@property (nonatomic, strong) NSMutableArray *dateArray;
 
 @end
 
 @implementation ViewController
 
+#pragma mark - Lazy Load
+- (NSString *)todayDate {
+    
+    if (_todayDate == nil) {
+        _todayDate = [NSString stringForTimeStamp:@"YYYY-MM-dd"];
+    }
+    
+    return _todayDate;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self yesterdayModelInit];
+    [self todayModelInit];
+    [self tommorrowModelInit];
+    
     [self navigationInit];
 
-    //添加pageViewController
-    [self addChildViewController:self.pageViewController];
-    [self.view addSubview:self.pageViewController.view];
+    //1.在self.view上添加一个底部滚动的scrollView
+    [self addScrollViewForView];
+    //2.在scrollView上添加缩放的zoomScrollView
+    [self addZoomScrollViewForScrollView];
     
+    //3.配置zoomScrollView的属性
+    [self configurationPropertyForZoomScrollViews];
+    
+
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -53,83 +80,196 @@
 - (void)navigationInit {
     
     UIBarButtonItem *left01 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"calendar"] style:UIBarButtonItemStylePlain target:self action:nil];
-    UIBarButtonItem *left02 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"previous"] style:UIBarButtonItemStylePlain target:self action:@selector(previousButtonClick:)];
-    
+    self.previousBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"previous"] style:UIBarButtonItemStylePlain target:self action:@selector(previousButtonClick:)];
     
     UIBarButtonItem *right01 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] landscapeImagePhone:[UIImage imageNamed:@"calender"] style:UIBarButtonItemStylePlain target:self action:nil];
-    UIBarButtonItem *right02 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"] style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonClick:)];
-    right02.enabled = NO;
+    self.nextBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"] style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonClick:)];
+    self.nextBarButton.enabled = NO;
     
-    self.navigationItem.leftBarButtonItems = @[left01, left02];
-    self.navigationItem.rightBarButtonItems = @[right01, right02];
+    self.navigationItem.leftBarButtonItems = @[left01, self.previousBarButton];
+    self.navigationItem.rightBarButtonItems = @[right01, self.nextBarButton];
     
-    self.navigationItem.title = [NSString stringForTimeStamp:@"EEE MM-dd"];
+    self.navigationItem.title = [self.todayDate goalFormat:@"EEE MM-dd" sourceFormat:@"YYYY-MM-dd"];
     
 }
 
-//pageViewController
-- (UIPageViewController *)pageViewController{
-    if (_pageViewController == nil) {
-        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey:@(10.0)}];
+- (void)addScrollViewForView{
+    
+    //设置属性
+    _homeScrollView.pagingEnabled = YES;
+    
+    _homeScrollView.delegate = self;
+    
+    _homeScrollView.backgroundColor = [UIColor blackColor];
+    
+    _homeScrollView.showsHorizontalScrollIndicator = NO;
+    
+}
+
+-(void)addZoomScrollViewForScrollView{
+    for (int i = 0; i < 3; i++) {
+        //创建并添加zoomScrollView
+        QDScrollView *zoomScrollView = [[NSBundle mainBundle] loadNibNamed:@"QDScrollView" owner:self options:nil][0];
+        zoomScrollView.frame = CGRectMake((QYScreenW + 25.0) * i, 0, QYScreenW, QYScreenH - 64);
         
-        //设置数据源和代理
-        _pageViewController.dataSource = self;
-        _pageViewController.delegate = self;
-        
-        //设置内容控制器
-        [_pageViewController setViewControllers:@[self.willDisPlayVCS[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        [_homeScrollView addSubview:zoomScrollView];
+        zoomScrollView.tag = 1000 + i;
     }
-    return _pageViewController;
 }
 
-
-//- (void)addScrollViewForView{
-//    //创建并添加scrollView
-//    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, (QYScreenW + 25.0), QYScreenH)];
-//    [self.view addSubview:scrollView];
-//    
-//    //设置属性
-//    scrollView.contentSize = CGSizeMake((QYScreenW + 25.0) * 3, QYScreenH);
-//    
-//    scrollView.pagingEnabled = YES;
-//    
-//    scrollView.delegate = self;
-//    
-//    scrollView.backgroundColor = [UIColor blackColor];
-//    
-//    scrollView.showsHorizontalScrollIndicator = NO;
-//    
-//    _homeScrollView = scrollView;
-//    
-//}
-//
-//-(void)addZoomScrollViewForScrollView{
-//    for (int i = 0; i < 3; i++) {
-//        //创建并添加zoomScrollView
-//        QDScrollView *zoomScrollView = [[QDScrollView alloc] initWithFrame:CGRectMake((QYScreenW + 25.0) * i, 0, QYScreenW, QYScreenH)];
-//        [_homeScrollView addSubview:zoomScrollView];
-//        zoomScrollView.tag = 1000 + i;
+//配置ZoomScrollView的属性(图片和偏移量)
+-(void)configurationPropertyForZoomScrollViews{
+    QDScrollView *leftZoomSC = [_homeScrollView viewWithTag:1000];
+    QDScrollView *middleZoomSC = [_homeScrollView viewWithTag:1001];
+    QDScrollView *rightZoomSC = [_homeScrollView viewWithTag:1002];
+    
+    //设置模型
+    middleZoomSC.sourceModel = self.todayModel;
+    leftZoomSC.sourceModel = self.yesterdayModel;
+    rightZoomSC.sourceModel = self.tomorrowModel;
+    
+    middleZoomSC.backgroundColor = [UIColor blueColor];
+    leftZoomSC.backgroundColor = [UIColor darkGrayColor];
+    rightZoomSC.backgroundColor = [UIColor lightGrayColor];
+    
+    //设置内容的偏移量
+//    if (!self.yesterdayModel) {//表示第一条数据
+//        
+//        _homeScrollView.contentOffset = CGPointMake(0, 0);
+//        
+//    } else if (!self.tomorrowModel) {//表示最后一条数据(今天)
+//        
+//        _homeScrollView.contentOffset = CGPointMake((QYScreenW + 25.0) * 2, 0);
+//        
+//    } else {
+    
+        _homeScrollView.contentOffset = CGPointMake((QYScreenW + 25.0), 0);
+        
 //    }
-//}
-//
-////配置ZoomScrollView的属性(图片和偏移量)
-//-(void)configurationPropertyForZoomScrollViews{
-//    QDScrollView *leftZoomSC = [_homeScrollView viewWithTag:1000];
-//    QDScrollView *middleZoomSC = [_homeScrollView viewWithTag:1001];
-//    QDScrollView *rightZoomSC = [_homeScrollView viewWithTag:1002];
-//    
-//    //设置模型
-//    
-//    
-//    //设置内容的偏移量
-//    _homeScrollView.contentOffset = CGPointMake((QYScreenW + 25.0), 0);
-//}
+    
+}
+
+#pragma mark - UIScrollViewDelegate
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    _currentPage = scrollView.contentOffset.x / (QYScreenW + 25);
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    scrollView.userInteractionEnabled = NO;
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    scrollView.userInteractionEnabled = YES;
+    if (_currentPage == scrollView.contentOffset.x / (QYScreenW + 25)) {
+        return;
+    }
+    
+    //判断左右滑动
+    if (scrollView.contentOffset.x == 0) {
+        if (!self.yesterdayModel) {
+            return;
+        }
+        //右滑
+        [self previousButtonClick:self.previousBarButton];
+        
+    }else if (scrollView.contentOffset.x == (QYScreenW + 25.0) * 2){
+        if (!self.tomorrowModel) {
+            return;
+        }
+        //左滑
+        [self nextButtonClick:self.nextBarButton];
+        
+    }
+    
+    [self configurationPropertyForZoomScrollViews];
+}
 
 #pragma mark - 数据库相关
 
-- (void)homeScrollViewInit {
+- (void)yesterdayModelInit {
     
+    __weak typeof(self) weakSelf = self;
     
+    [QDDataBaseTool selectStatementsSql:SELECT_PREVIOUS(self.todayDate)
+                         withParsmeters:nil
+                                forMode:@"QDModel"
+                                  block:^(NSMutableArray *resposeObjc, NSString *errorMsg) {
+                                     
+                                      if (resposeObjc.count) {
+                                          
+                                          weakSelf.yesterdayModel = resposeObjc[0];
+                                          weakSelf.nextBarButton.enabled = YES;
+                                          
+                                      } else {
+                                          
+                                          weakSelf.yesterdayModel = nil;
+                                          weakSelf.previousBarButton.enabled = NO;
+                                          
+                                      }
+                                      
+                                      [weakSelf configurationPropertyForZoomScrollViews];
+                                      
+                                  }];
+    
+}
+
+- (void)todayModelInit {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [QDDataBaseTool selectStatementsSql:SELECT_TODAY(self.todayDate)
+                         withParsmeters:nil
+                                forMode:@"QDModel"
+                                  block:^(NSMutableArray *resposeObjc, NSString *errorMsg) {
+                                      
+                                      if (resposeObjc.count) {
+                                          
+                                          weakSelf.todayModel = resposeObjc[0];
+                                          
+                                      } else {
+                                          
+                                          weakSelf.todayModel = [QDModel todayModelForNullAttributes];
+                                          
+                                      }
+                                      
+                                  }];
+    
+}
+
+- (void)tommorrowModelInit {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [QDDataBaseTool selectStatementsSql:SELECT_NEXT(self.todayDate)
+                         withParsmeters:nil
+                                forMode:@"QDModel"
+                                  block:^(NSMutableArray *resposeObjc, NSString *errorMsg) {
+                                      
+                                      if (resposeObjc.count) {
+                                          
+                                          weakSelf.tomorrowModel = resposeObjc[0];
+                                          weakSelf.previousBarButton.enabled = YES;
+                                          
+                                      } else {
+                                          
+                                          if ([weakSelf.todayModel.todayDate isEqualToString:[NSString stringForTimeStamp:@"YYYY-MM-dd"]]) {//
+                                              
+                                              weakSelf.tomorrowModel = nil;
+                                              weakSelf.nextBarButton.enabled = NO;
+                                              
+                                          } else {
+                                              
+                                              weakSelf.tomorrowModel = [QDModel todayModelForNullAttributes];
+                                              
+                                          }
+                                          
+                                          
+                                      }
+                                      
+                                      [weakSelf configurationPropertyForZoomScrollViews];
+                                      
+                                  }];
     
 }
 
@@ -137,105 +277,44 @@
 //上一天
 - (IBAction)previousButtonClick:(UIBarButtonItem *)sender {
     
+    self.tomorrowModel = self.todayModel;
+    self.todayModel = self.yesterdayModel;
     
+    self.todayDate = self.todayModel.todayDate;
+    
+    [self yesterdayModelInit];
+    
+    self.navigationItem.title = [self.todayDate goalFormat:@"EEE MM-dd" sourceFormat:@"YYYY-MM-dd"];
     
 }
 
 //下一天
 - (IBAction)nextButtonClick:(UIBarButtonItem *)sender {
     
+    self.yesterdayModel = self.todayModel;
+    self.todayModel = self.tomorrowModel;
     
+    self.todayDate = self.todayModel.todayDate;
+    
+    [self tommorrowModelInit];
+    
+    self.navigationItem.title = [self.todayDate goalFormat:@"EEE MM-dd" sourceFormat:@"YYYY-MM-dd"];
     
 }
 
 //签到
 - (IBAction)signInButtonClick:(UIButton *)sender {
     
-    if (_todayModel) {
-        
-    } else {
-        
-        __weak typeof(self) weakSelf = self;
-        
-        NSMutableDictionary *parsmeters = [[NSMutableDictionary alloc] init];
-        
-        NSDate *now = [NSDate date];
-        
-        [parsmeters setValue:[NSString stringForTimeStamp:@"YYYY-MM-dd"] forKey:kTodayDate];
-        [parsmeters setValue:[NSString stringWithFormat:@"%0f", now.timeIntervalSince1970] forKey:kSignInTime];
-        [parsmeters setValue:@"0" forKey:kSignOutTime];
-        [parsmeters setValue:@"0" forKey:kWorkDuration];
-        [parsmeters setValue:_yesterdayModel.vacationTime ? : @"0" forKey:kVacationTime];
-        
-        [parsmeters setValue:@"0" forKey:kKnockOffTime];
-        
-        [QDDataBaseTool updateStatementsSql:INSERT_SQL
-                             withParsmeters:parsmeters
-                                      block:^(BOOL isOk, NSString *errorMsg) {
-                                          
-                                          if (isOk) {
-                                              
-                                              sender.enabled = NO;
 
-                                              [sender setTitle:[NSString stringWithFormat:@"已签到\n%@", [[NSString stringWithFormat:@"%0f", now.timeIntervalSince1970] stringByTimeStamp:@"HH:mm:ss"]] forState:UIControlStateDisabled];
-                                              [sender.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-                                              [sender.titleLabel setNumberOfLines:2];
-                                              
-                                              _todayModel = [QDModel qiandaoModelWithDictionary:parsmeters];
-                                              
-                                          } else {
-                                              
-                                              NSLog(@"%@", errorMsg);
-                                              
-                                          }
-                                          
-                                      }];
-        
-    }
     
 }
 
 //签退
 - (IBAction)signOutButtonClick:(UIButton *)sender {
     
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     
-    NSDate *now = [NSDate date];
-    NSString *signOutString = [NSString stringWithFormat:@"%0f", now.timeIntervalSince1970];
-    NSString *workDurationString = [NSString workDurationBystartString:_todayModel.signInTime endString:signOutString];
-    NSString *vacationString = [NSString vacationTimeByLastVacation:_yesterdayModel.vacationTime ? : @"0" workDuration:workDurationString];
-    
-    NSString *sqlStr = UPDATE_SQL(signOutString, workDurationString, vacationString, [NSString stringForTimeStamp:@"YYYY-MM-dd"]);
-    
-    [QDDataBaseTool updateStatementsSql:sqlStr
-                         withParsmeters:nil
-                                  block:^(BOOL isOk, NSString *errorMsg) {
-                                      
-                                      if (isOk) {
-                                          
-//                                          [weakSelf todayModelInit];
-                                          [sender setTitle:[NSString stringWithFormat:@"已签退\n%@", [[NSString stringWithFormat:@"%0f", now.timeIntervalSince1970] stringByTimeStamp:@"HH:mm:ss"]] forState:UIControlStateNormal];
-                                          [sender.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-                                          [sender.titleLabel setNumberOfLines:2];
-                                          
-                                          _todayModel.signOutTime = signOutString;
-                                          _todayModel.workDuration = workDurationString;
-                                          _todayModel.vacationTime = vacationString;
-                                          
-                                          if (_todayModel.vacationTime.doubleValue <= 0) {
-                                              weakSelf.vacationTimeLabel.textColor = [UIColor redColor];
-                                          } else {
-                                              weakSelf.vacationTimeLabel.textColor = [UIColor greenColor];
-                                          }
-                                          weakSelf.vacationTimeLabel.text = [_todayModel.vacationTime durationString];
-                                          
-                                      } else {
-                                          
-                                          NSLog(@"%@", errorMsg);
-                                          
-                                      }
-                                      
-                                  }];
+ 
     
 }
 
@@ -247,35 +326,6 @@
 
 //当前月历史
 - (IBAction)currentMonthButtonClick:(UIButton *)sender {
-    
-}
-
-- (void)vacationTimeInit {
-    
-    if (_todayModel.vacationTime.doubleValue) {
-        
-        if (_todayModel.vacationTime.doubleValue <= 0) {
-            self.vacationTimeLabel.textColor = [UIColor redColor];
-        } else {
-            self.vacationTimeLabel.textColor = [UIColor greenColor];
-        }
-        self.vacationTimeLabel.text = [_todayModel.vacationTime durationString];
-        
-    } else if (_yesterdayModel.vacationTime.doubleValue) {
-        
-        if (_yesterdayModel.vacationTime.doubleValue <= 0) {
-            self.vacationTimeLabel.textColor = [UIColor redColor];
-        } else {
-            self.vacationTimeLabel.textColor = [UIColor greenColor];
-        }
-        self.vacationTimeLabel.text = [_yesterdayModel.vacationTime durationString];
-        
-    } else {
-        
-        self.vacationTimeLabel.textColor = [UIColor redColor];
-        self.vacationTimeLabel.text = @"0:00:00";
-        
-    }
     
 }
 

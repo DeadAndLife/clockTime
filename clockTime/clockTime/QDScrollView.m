@@ -67,13 +67,24 @@
     
     if (_sourceModel.signOutTime.doubleValue) {//签过退
         
-        [self.signOutButton setTitle:[NSString stringWithFormat:@"已签到\n%@", [_sourceModel.signOutTime stringByTimeStamp:@"HH:mm:ss"]] forState:UIControlStateNormal];
+        [self.signOutButton setTitle:[NSString stringWithFormat:@"已签退\n%@", [_sourceModel.signOutTime stringByTimeStamp:@"HH:mm:ss"]] forState:UIControlStateNormal];
         [self.signOutButton.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
     } else {
         
-        [self.signInButton setTitle:@"签退" forState:UIControlStateDisabled];
-        [self.signInButton.titleLabel setFont:[UIFont systemFontOfSize:20.0f]];
+        [self.signOutButton setTitle:@"签退" forState:UIControlStateNormal];
+        [self.signOutButton.titleLabel setFont:[UIFont systemFontOfSize:20.0f]];
+        
+    }
+    
+    if ([_sourceModel.todayDate isEqualToString:[NSString stringForTimeStamp:@"YYYY-MM-dd"]]) {//若是今天
+        
+        self.signOutButton.enabled = YES;
+        
+    } else {
+        
+        self.signInButton.enabled = NO;
+        self.signOutButton.enabled = NO;
         
     }
     

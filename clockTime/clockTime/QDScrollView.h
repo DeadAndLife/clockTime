@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "QDModel.h"
 
-@interface QDScrollView : UIScrollView
+@interface QDScrollView : UIView
 
 @property (nonatomic, strong) QDModel *sourceModel;
 

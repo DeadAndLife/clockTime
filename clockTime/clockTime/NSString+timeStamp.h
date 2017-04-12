@@ -21,6 +21,15 @@
 - (NSString *)stringByTimeStamp:(NSString *)dateFormat;
 
 /**
+ 日期格式转换
+
+ @param goalFormat 目标格式
+ @param sourceFormat 源格式
+ @return 返回字符串
+ */
+- (NSString *)goalFormat:(NSString *)goalFormat sourceFormat:(NSString *)sourceFormat;
+
+/**
  计算工作时长
 
  @param stratStr 开始时间

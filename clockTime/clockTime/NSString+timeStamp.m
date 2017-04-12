@@ -173,6 +173,20 @@
     
 }
 
+- (NSString *)goalFormat:(NSString *)goalFormat sourceFormat:(NSString *)sourceFormat {
+    
+    NSDateFormatter *goalFormatter = [[NSDateFormatter alloc] init];
+    goalFormatter.dateFormat = goalFormat;
+    
+    NSDateFormatter *sourceFormatter = [[NSDateFormatter alloc] init];
+    sourceFormatter.dateFormat = sourceFormat;
+    
+    NSDate *date = [sourceFormatter dateFromString:self];
+    
+    return [goalFormatter stringFromDate:date];
+    
+}
+
 - (NSInteger)timeStampWithDateFormat {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
