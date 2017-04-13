@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QDScrollView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QDHomeView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -64,6 +64,7 @@
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="lhE-Al-mMh" firstAttribute="centerX" secondItem="COj-CG-SL6" secondAttribute="centerX" id="7X2-xg-zO1"/>
                 <constraint firstItem="COj-CG-SL6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="EfA-25-NS9"/>
@@ -79,11 +80,17 @@
                 <constraint firstItem="lhE-Al-mMh" firstAttribute="top" secondItem="COj-CG-SL6" secondAttribute="bottom" constant="10" id="zDR-Jt-MIK"/>
             </constraints>
             <connections>
+                <outlet property="panGestureRecognizer" destination="5V9-zd-0jX" id="ren-EJ-job"/>
                 <outlet property="signInButton" destination="gT2-xG-ZTZ" id="AC2-rB-y9O"/>
                 <outlet property="signOutButton" destination="pkC-8H-mUi" id="ksd-IB-ByS"/>
+                <outlet property="swipeGestureRecognizer" destination="Ceo-Ra-Y3J" id="PwR-ls-ZMF"/>
                 <outlet property="vacationTimeLabel" destination="lhE-Al-mMh" id="Eja-9N-zrg"/>
                 <outlet property="workDuration" destination="tAT-Zg-cXI" id="DQd-qp-LkH"/>
+                <outletCollection property="gestureRecognizers" destination="5V9-zd-0jX" appends="YES" id="IfZ-S7-d6y"/>
+                <outletCollection property="gestureRecognizers" destination="Ceo-Ra-Y3J" appends="YES" id="RRa-Q5-dRO"/>
             </connections>
         </view>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="5V9-zd-0jX"/>
+        <swipeGestureRecognizer direction="right" id="Ceo-Ra-Y3J"/>
     </objects>
 </document>

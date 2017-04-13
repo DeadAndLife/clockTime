@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		445BAEA11E9CD3CD00FABB4C /* QDScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445BAEA01E9CD3CD00FABB4C /* QDScrollView.m */; };
-		445BAEA31E9CD3F800FABB4C /* QDScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445BAEA21E9CD3F800FABB4C /* QDScrollView.xib */; };
+		445BAEA11E9CD3CD00FABB4C /* QDHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445BAEA01E9CD3CD00FABB4C /* QDHomeView.m */; };
+		445BAEA31E9CD3F800FABB4C /* QDHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445BAEA21E9CD3F800FABB4C /* QDHomeView.xib */; };
 		44634E9C1E88F4380002F2E2 /* QDDataBaseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634E9B1E88F4380002F2E2 /* QDDataBaseTool.m */; };
 		44634E9F1E88F4ED0002F2E2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 44634E9E1E88F4ED0002F2E2 /* libsqlite3.tbd */; };
 		44634EA21E88F5280002F2E2 /* QDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634EA11E88F5280002F2E2 /* QDModel.m */; };
@@ -27,9 +27,9 @@
 
 /* Begin PBXFileReference section */
 		21C9208E8805E6B190E7ABE0 /* libPods-clockTime.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clockTime.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		445BAE9F1E9CD3CD00FABB4C /* QDScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDScrollView.h; sourceTree = "<group>"; };
-		445BAEA01E9CD3CD00FABB4C /* QDScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDScrollView.m; sourceTree = "<group>"; };
-		445BAEA21E9CD3F800FABB4C /* QDScrollView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDScrollView.xib; sourceTree = "<group>"; };
+		445BAE9F1E9CD3CD00FABB4C /* QDHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHomeView.h; sourceTree = "<group>"; };
+		445BAEA01E9CD3CD00FABB4C /* QDHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDHomeView.m; sourceTree = "<group>"; };
+		445BAEA21E9CD3F800FABB4C /* QDHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDHomeView.xib; sourceTree = "<group>"; };
 		44634E9A1E88F4380002F2E2 /* QDDataBaseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDDataBaseTool.h; sourceTree = "<group>"; };
 		44634E9B1E88F4380002F2E2 /* QDDataBaseTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDDataBaseTool.m; sourceTree = "<group>"; };
 		44634E9D1E88F4880002F2E2 /* DataBaseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseTool.h; sourceTree = "<group>"; };
@@ -86,9 +86,9 @@
 				44634EAD1E890F820002F2E2 /* QDTableViewCell.h */,
 				44634EAE1E890F820002F2E2 /* QDTableViewCell.m */,
 				44634EAF1E890F820002F2E2 /* QDTableViewCell.xib */,
-				445BAE9F1E9CD3CD00FABB4C /* QDScrollView.h */,
-				445BAEA01E9CD3CD00FABB4C /* QDScrollView.m */,
-				445BAEA21E9CD3F800FABB4C /* QDScrollView.xib */,
+				445BAE9F1E9CD3CD00FABB4C /* QDHomeView.h */,
+				445BAEA01E9CD3CD00FABB4C /* QDHomeView.m */,
+				445BAEA21E9CD3F800FABB4C /* QDHomeView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -252,7 +252,7 @@
 				44634EB11E890F820002F2E2 /* QDTableViewCell.xib in Resources */,
 				44A493891E88B76E0076B167 /* LaunchScreen.storyboard in Resources */,
 				44A493861E88B76E0076B167 /* Assets.xcassets in Resources */,
-				445BAEA31E9CD3F800FABB4C /* QDScrollView.xib in Resources */,
+				445BAEA31E9CD3F800FABB4C /* QDHomeView.xib in Resources */,
 				44A493841E88B76E0076B167 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,7 +320,7 @@
 				44634EB71E8913BF0002F2E2 /* NSString+timeStamp.m in Sources */,
 				44634EA51E8907980002F2E2 /* NSMutableDictionary+setObj.m in Sources */,
 				44634E9C1E88F4380002F2E2 /* QDDataBaseTool.m in Sources */,
-				445BAEA11E9CD3CD00FABB4C /* QDScrollView.m in Sources */,
+				445BAEA11E9CD3CD00FABB4C /* QDHomeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

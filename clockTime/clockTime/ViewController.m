@@ -8,12 +8,12 @@
 
 #import "ViewController.h"
 #import "QDModel.h"
-#import "QDScrollView.h"
+#import "QDHomeView.h"
 #import "QDDataBaseTool.h"
 #import "QDCommon.h"
 #import "NSString+timeStamp.h"
 
-@interface ViewController ()<UIScrollViewDelegate>
+@interface ViewController ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem *nextBarButton;
 
@@ -25,9 +25,7 @@
 
 @property (nonatomic, strong) QDModel *tomorrowModel;
 
-@property (nonatomic)         NSInteger currentPage;        //当前页
-
-@property (weak, nonatomic) IBOutlet UIScrollView *homeScrollView;
+@property (weak, nonatomic) IBOutlet QDHomeView *homeView;
 
 @end
 
@@ -53,16 +51,9 @@
     [self tommorrowModelInit];
     
     [self navigationInit];
-
-    //1.在self.view上添加一个底部滚动的scrollView
-    [self addScrollViewForView];
-    //2.在scrollView上添加缩放的zoomScrollView
-    [self addZoomScrollViewForScrollView];
     
-    //3.配置zoomScrollView的属性
-    [self configurationPropertyForZoomScrollViews];
+    [self updateHomeView];
     
-
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -93,96 +84,24 @@
     
 }
 
-- (void)addScrollViewForView{
+- (void)updateHomeView {
     
-    //设置属性
-    _homeScrollView.pagingEnabled = YES;
-    
-    _homeScrollView.delegate = self;
-    
-    _homeScrollView.backgroundColor = [UIColor blackColor];
-    
-    _homeScrollView.showsHorizontalScrollIndicator = NO;
-    
-}
+    if (!self.homeView.sourceModel) {
+        self.homeView = [[NSBundle mainBundle] loadNibNamed:@"QDHomeView" owner:self options:nil][0];
 
--(void)addZoomScrollViewForScrollView{
-    for (int i = 0; i < 3; i++) {
-        //创建并添加zoomScrollView
-        QDScrollView *zoomScrollView = [[NSBundle mainBundle] loadNibNamed:@"QDScrollView" owner:self options:nil][0];
-        zoomScrollView.frame = CGRectMake((QYScreenW + 25.0) * i, 0, QYScreenW, QYScreenH - 64);
+        self.homeView.frame = CGRectMake(0, 64, QYScreenW, QYScreenH - 64 - 44);
         
-        [_homeScrollView addSubview:zoomScrollView];
-        zoomScrollView.tag = 1000 + i;
-    }
-}
-
-//配置ZoomScrollView的属性(图片和偏移量)
--(void)configurationPropertyForZoomScrollViews{
-    QDScrollView *leftZoomSC = [_homeScrollView viewWithTag:1000];
-    QDScrollView *middleZoomSC = [_homeScrollView viewWithTag:1001];
-    QDScrollView *rightZoomSC = [_homeScrollView viewWithTag:1002];
-    
-    //设置模型
-    middleZoomSC.sourceModel = self.todayModel;
-    leftZoomSC.sourceModel = self.yesterdayModel;
-    rightZoomSC.sourceModel = self.tomorrowModel;
-    
-    middleZoomSC.backgroundColor = [UIColor blueColor];
-    leftZoomSC.backgroundColor = [UIColor darkGrayColor];
-    rightZoomSC.backgroundColor = [UIColor lightGrayColor];
-    
-    //设置内容的偏移量
-//    if (!self.yesterdayModel) {//表示第一条数据
-//        
-//        _homeScrollView.contentOffset = CGPointMake(0, 0);
-//        
-//    } else if (!self.tomorrowModel) {//表示最后一条数据(今天)
-//        
-//        _homeScrollView.contentOffset = CGPointMake((QYScreenW + 25.0) * 2, 0);
-//        
-//    } else {
-    
-        _homeScrollView.contentOffset = CGPointMake((QYScreenW + 25.0), 0);
+        [self.homeView.signInButton addTarget:self action:@selector(signInButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.homeView.signOutButton addTarget:self action:@selector(signOutButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
-//    }
-    
-}
-
-#pragma mark - UIScrollViewDelegate
-
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    _currentPage = scrollView.contentOffset.x / (QYScreenW + 25);
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    scrollView.userInteractionEnabled = NO;
-}
-
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    scrollView.userInteractionEnabled = YES;
-    if (_currentPage == scrollView.contentOffset.x / (QYScreenW + 25)) {
-        return;
+        [self.homeView.swipeGestureRecognizer addTarget:self action:@selector(swipeGestureAction:)];
+        [self.homeView.panGestureRecognizer addTarget:self action:@selector(panGestureAction:)];
+        
+        [self.view addSubview:self.homeView];
     }
     
-    //判断左右滑动
-    if (scrollView.contentOffset.x == 0) {
-        if (!self.yesterdayModel) {
-            return;
-        }
-        //右滑
-        [self previousButtonClick:self.previousBarButton];
-        
-    }else if (scrollView.contentOffset.x == (QYScreenW + 25.0) * 2){
-        if (!self.tomorrowModel) {
-            return;
-        }
-        //左滑
-        [self nextButtonClick:self.nextBarButton];
-        
-    }
+    self.homeView.sourceModel = self.todayModel;
     
-    [self configurationPropertyForZoomScrollViews];
 }
 
 #pragma mark - 数据库相关
@@ -208,7 +127,7 @@
                                           
                                       }
                                       
-                                      [weakSelf configurationPropertyForZoomScrollViews];
+                                      [weakSelf updateHomeView];
                                       
                                   }];
     
@@ -263,11 +182,10 @@
                                               weakSelf.tomorrowModel = [QDModel todayModelForNullAttributes];
                                               
                                           }
-                                          
-                                          
+                                        
                                       }
                                       
-                                      [weakSelf configurationPropertyForZoomScrollViews];
+                                      [weakSelf updateHomeView];
                                       
                                   }];
     
@@ -305,16 +223,69 @@
 //签到
 - (IBAction)signInButtonClick:(UIButton *)sender {
     
-
+    __weak typeof(self) weakSelf = self;
+    
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    
+    NSDate *date = [NSDate date];
+    NSString *signInTime = [NSString stringWithFormat:@"%f", date.timeIntervalSince1970];
+    
+    [dict setValue:self.todayDate forKey:kTodayDate];
+    [dict setValue:signInTime forKey:kSignInTime];
+    [dict setValue:@"0" forKey:kSignOutTime];
+    [dict setValue:@"0" forKey:kWorkDuration];
+    [dict setValue:@"0" forKey:kVacationTime];
+    [dict setValue:@"0" forKey:kKnockOffTime];
+    
+    [QDDataBaseTool updateStatementsSql:INSERT_SQL
+                         withParsmeters:dict
+                                  block:^(BOOL isOk, NSString *errorMsg) {
+                                      
+                                      if (isOk) {
+                                          
+                                          weakSelf.todayModel.signInTime = signInTime;
+                                          [weakSelf updateHomeView];
+                                          
+                                      } else {
+                                       
+                                          NSLog(@"%@", errorMsg);
+                                          
+                                      }
+                                      
+                                  }];
     
 }
 
 //签退
 - (IBAction)signOutButtonClick:(UIButton *)sender {
     
-//    __weak typeof(self) weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     
- 
+    NSDate *date = [NSDate date];
+    NSString *signOutTime = [NSString stringWithFormat:@"%f", date.timeIntervalSince1970];
+    
+    NSString *workDuration = [NSString workDurationBystartString:self.todayModel.signInTime endString:signOutTime];
+    NSString *vacationTime = [NSString vacationTimeByLastVacation:self.yesterdayModel ? self.yesterdayModel.vacationTime : @"0" workDuration:workDuration];
+    
+    [QDDataBaseTool updateStatementsSql:UPDATE_SQL(signOutTime, workDuration, vacationTime, self.todayDate)
+                         withParsmeters:nil
+                                  block:^(BOOL isOk, NSString *errorMsg) {
+                                     
+                                      if (isOk) {
+                                          
+                                          weakSelf.todayModel.signOutTime = signOutTime;
+                                          weakSelf.todayModel.workDuration = workDuration;
+                                          weakSelf.todayModel.vacationTime = vacationTime;
+                                          
+                                          [weakSelf updateHomeView];
+                                          
+                                      } else {
+                                          
+                                          NSLog(@"%@", errorMsg);
+                                          
+                                      }
+                                      
+                                  }];
     
 }
 
@@ -326,6 +297,57 @@
 
 //当前月历史
 - (IBAction)currentMonthButtonClick:(UIButton *)sender {
+    
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+- (IBAction)panGestureAction:(UIPanGestureRecognizer *)sender {
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        CGPoint point=[sender translationInView:sender.view.superview];
+        
+        if (point.x > 0) {
+            
+            if (!self.yesterdayModel) {
+                return;
+            }
+            [self previousButtonClick:self.previousBarButton];
+            
+        } else if (point.x < 0){
+            
+            if (!self.tomorrowModel) {
+                return;
+            }
+            [self nextButtonClick:self.nextBarButton];
+            
+        }
+        
+    }
+    
+}
+
+- (IBAction)swipeGestureAction:(UISwipeGestureRecognizer *)sender {
+
+    switch (sender.direction) {
+        case UISwipeGestureRecognizerDirectionRight:{
+            if (!self.yesterdayModel) {
+                return;
+            }
+            [self previousButtonClick:self.previousBarButton];
+        }
+            break;
+        case UISwipeGestureRecognizerDirectionLeft:{
+            if (!self.tomorrowModel) {
+                return;
+            }
+            [self nextButtonClick:self.nextBarButton];
+        }
+            break;
+        default:{
+            
+        }
+            break;
+    }
     
 }
 

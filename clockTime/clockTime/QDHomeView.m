@@ -1,15 +1,15 @@
 //
-//  QDScrollView.m
+//  QDHomeView.m
 //  clockTime
 //
 //  Created by iOSDeveloper on 2017/4/11.
 //  Copyright © 2017年 iOSDeveloper. All rights reserved.
 //
 
-#import "QDScrollView.h"
+#import "QDHomeView.h"
 #import "NSString+timeStamp.h"
 
-@interface QDScrollView ()
+@interface QDHomeView ()<UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *vacationTimeLabel;
 
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation QDScrollView
+@implementation QDHomeView
 
 /*
 // Only override drawRect: if you perform custom drawing.
