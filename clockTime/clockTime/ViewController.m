@@ -70,11 +70,21 @@
 
 - (void)navigationInit {
     
-    UIBarButtonItem *left01 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"calendar"] style:UIBarButtonItemStylePlain target:self action:nil];
-    self.previousBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"previous"] style:UIBarButtonItemStylePlain target:self action:@selector(previousButtonClick:)];
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [leftBtn setImage:[UIImage imageNamed:@"calendar"] forState:UIControlStateNormal];
+    UIBarButtonItem *left01 = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    UIButton *previousBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [previousBtn setImage:[UIImage imageNamed:@"previous"] forState:UIControlStateNormal];
+    self.previousBarButton = [[UIBarButtonItem alloc] initWithCustomView:previousBtn];
     
-    UIBarButtonItem *right01 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] landscapeImagePhone:[UIImage imageNamed:@"calender"] style:UIBarButtonItemStylePlain target:self action:nil];
-    self.nextBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"] style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonClick:)];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [rightBtn setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+    UIBarButtonItem *right01 = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+//    UIBarButtonItem *right01 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] landscapeImagePhone:[UIImage imageNamed:@"calender"] style:UIBarButtonItemStylePlain target:self action:nil];
+    UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [nextBtn setImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
+    self.nextBarButton = [[UIBarButtonItem alloc] initWithCustomView:nextBtn];
+//    self.nextBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"] style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonClick:)];
     self.nextBarButton.enabled = NO;
     
     self.navigationItem.leftBarButtonItems = @[left01, self.previousBarButton];
