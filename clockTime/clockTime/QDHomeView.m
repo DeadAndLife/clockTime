@@ -7,7 +7,7 @@
 //
 
 #import "QDHomeView.h"
-#import "NSString+timeStamp.h"
+#import "QDCommon.h"
 
 @interface QDHomeView ()<UIGestureRecognizerDelegate>
 
@@ -52,7 +52,7 @@
         
         self.signInButton.enabled = NO;
         
-        [self.signInButton setTitle:[NSString stringWithFormat:@"已签到\n%@", [_sourceModel.signInTime stringByTimeStamp:@"HH:mm:ss"]] forState:UIControlStateDisabled];
+        [self.signInButton setTitle:[NSString stringWithFormat:@"已签到\n%@", _sourceModel.signInTime] forState:UIControlStateDisabled];
         [self.signInButton.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
         
@@ -66,7 +66,7 @@
     
     if (_sourceModel.signOutTime.doubleValue) {//签过退
         
-        [self.signOutButton setTitle:[NSString stringWithFormat:@"已签退\n%@", [_sourceModel.signOutTime stringByTimeStamp:@"HH:mm:ss"]] forState:UIControlStateNormal];
+        [self.signOutButton setTitle:[NSString stringWithFormat:@"已签退\n%@", _sourceModel.signOutTime] forState:UIControlStateNormal];
         [self.signOutButton.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
     } else {

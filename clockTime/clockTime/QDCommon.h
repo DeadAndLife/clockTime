@@ -39,4 +39,7 @@ static NSString * const kWorkDuration = @"workDuration";//今日工作时长
 static NSString * const kVacationTime = @"vacationTime";//当前存休时长
 static NSString * const kKnockOffTime = @"knockOffTime";//理论下班时间
 
+#import "QDDataBaseTool.h"
+#import "NSString+timeStamp.h"
+
 #endif /* QDCommon_h */

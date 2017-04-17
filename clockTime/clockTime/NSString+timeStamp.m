@@ -189,14 +189,7 @@
 
 - (NSInteger)timeStampWithDateFormat {
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"HH:mm:ss";
-    
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self doubleValue]];
-    
-    NSString *timeStamp = [dateFormatter stringFromDate:date];
-    
-    NSArray *timeArr = [timeStamp componentsSeparatedByString:@":"];
+    NSArray *timeArr = [self componentsSeparatedByString:@":"];
     
     NSInteger hour = [timeArr[0] integerValue];
     NSInteger minute = [timeArr[1] integerValue];

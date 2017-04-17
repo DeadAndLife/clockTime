@@ -32,7 +32,7 @@
 
 //更新数据(签退时间，工作时长，当前存休)
 //#define UPDATE_SQL(todayDate) [NSString stringWithFormat:@"UPDATE qiandao SET VALUES(:signOutTime,:workDuration,:vacationTime) WHERE signInTime = '%@'", (todayDate)]
-#define UPDATE_SQL(signOutTime, workDuration, vacationTime, todayDate) [NSString stringWithFormat:@"UPDATE qiandao SET signOutTime = %@ , workDuration = %@ , vacationTime = %@ WHERE todayDate = '%@'", (signOutTime), (workDuration), (vacationTime), (todayDate)]
+#define UPDATE_SQL(signOutTime, workDuration, vacationTime, todayDate) [NSString stringWithFormat:@"UPDATE qiandao SET signOutTime = '%@' , workDuration = '%@' , vacationTime = '%@' WHERE todayDate = '%@'", (signOutTime), (workDuration), (vacationTime), (todayDate)]
 
 //查询所有的数据
 #define SELECT_ALL(minValue, maxValue) [NSString stringWithFormat:@"SELECT * from qiandao WHERE signInTime BETWEEN %ld AND %ld", (minValue), (maxValue)]

@@ -7,11 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "QDSettingTableViewController.h"
 #import "QDModel.h"
 #import "QDHomeView.h"
-#import "QDDataBaseTool.h"
 #import "QDCommon.h"
-#import "NSString+timeStamp.h"
 
 @interface ViewController ()<UIGestureRecognizerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -80,7 +79,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self dataModelInit];
-    [self dateDictInit];
     
     [self navigationInit];
     
@@ -271,6 +269,8 @@
                                      
                                       if (resposeObjc.count) {
                                           
+                                          [weakSelf.dateDict removeAllObjects];
+                                          
                                           [resposeObjc enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                                              
                                               if ([obj isKindOfClass:[NSDictionary class]]) {
@@ -360,13 +360,13 @@
 //日期选择
 - (IBAction)datePickerButtonClick:(UIButton *)sender {
     
-    [self allTimeArrayInit];
+    [self dateDictInit];
     
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     //背景
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, QYScreenW, QYScreenH)];
     //当前imageview的原始尺寸->将像素currentImageview.bounds由currentImageview.bounds所在视图转换到目标视图window中，返回在目标视图window中的像素值
-    [backgroundView setBackgroundColor:colRGB(220, 220, 220, 0.8)];
+    [backgroundView setBackgroundColor:colRGB(253, 250, 245, 0.95)];
     
     UIPickerView *datePicker = [[UIPickerView alloc] init];
     CGPoint center = backgroundView.center;
@@ -425,16 +425,15 @@
     __weak typeof(self) weakSelf = self;
     
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
-    
-    NSDate *date = [NSDate date];
-    NSString *signInTime = [NSString stringWithFormat:@"%f", date.timeIntervalSince1970];
+
+    NSString *signInTime = [NSString stringForTimeStamp:@"HH:mm:ss"];
     
     [dict setValue:self.todayDate forKey:kTodayDate];
     [dict setValue:signInTime forKey:kSignInTime];
     [dict setValue:@"0" forKey:kSignOutTime];
     [dict setValue:@"0" forKey:kWorkDuration];
     
-    if ([[self.todayDate componentsSeparatedByString:@"-"][2] isEqualToString:@"01"] || !self.yesterdayModel.vacationTime) {
+    if (!self.yesterdayModel.vacationTime || ![[self.yesterdayModel.todayDate componentsSeparatedByString:@"-"][1] isEqualToString:[self.todayDate componentsSeparatedByString:@"-"][1]]) {//不存在存休时间，或隔月签到
         
         [dict setValue:@"0" forKey:kVacationTime];
         
@@ -454,7 +453,7 @@
                                           
                                           weakSelf.todayModel.signInTime = signInTime;
                                           
-                                          if ([[weakSelf.todayDate componentsSeparatedByString:@"-"][2] isEqualToString:@"01"] || !weakSelf.yesterdayModel.vacationTime) {
+                                          if (!weakSelf.yesterdayModel.vacationTime || ![[self.yesterdayModel.todayDate componentsSeparatedByString:@"-"][1] isEqualToString:[self.todayDate componentsSeparatedByString:@"-"][1]]) {
                                               
                                               weakSelf.todayModel.vacationTime = @"0";
                                               
@@ -481,11 +480,20 @@
     
     __weak typeof(self) weakSelf = self;
     
-    NSDate *date = [NSDate date];
-    NSString *signOutTime = [NSString stringWithFormat:@"%f", date.timeIntervalSince1970];
+    NSString *signOutTime = [NSString stringForTimeStamp:@"HH:mm:ss"];
     
     NSString *workDuration = [NSString workDurationBystartString:self.todayModel.signInTime endString:signOutTime];
-    NSString *vacationTime = [NSString vacationTimeByLastVacation:self.yesterdayModel ? self.yesterdayModel.vacationTime : @"0" workDuration:workDuration];
+    NSString *vacationTime;
+    
+    if (!self.yesterdayModel.vacationTime || ![[self.yesterdayModel.todayDate componentsSeparatedByString:@"-"][1] isEqualToString:[self.todayDate componentsSeparatedByString:@"-"][1]]) {//不存在存休时间，或隔月签到
+        
+        vacationTime = [NSString vacationTimeByLastVacation:@"0" workDuration:workDuration];
+        
+    } else {
+        
+        vacationTime = [NSString vacationTimeByLastVacation:self.yesterdayModel.vacationTime workDuration:workDuration];
+
+    }
     
     [QDDataBaseTool updateStatementsSql:UPDATE_SQL(signOutTime, workDuration, vacationTime, self.todayDate)
                          withParsmeters:nil
