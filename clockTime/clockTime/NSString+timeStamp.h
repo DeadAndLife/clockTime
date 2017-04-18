@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QDCommon.h"
+//#import "QDCommon.h"
 
 @interface NSString (timeStamp)
 
 //target表示查询的范围，0:当天，1:当月，2:上月
-+ (TimeRange)timeRangeWithtarget:(TimeScope)target;
+//+ (TimeRange)timeRangeWithtarget:(TimeScope)target;
 
 //今日@"YYYY-MM-dd HH:mm:ss"
 + (NSString *)stringForTimeStamp:(NSString *)dateFormat;
@@ -28,6 +28,21 @@
  @return 返回字符串
  */
 - (NSString *)goalFormat:(NSString *)goalFormat sourceFormat:(NSString *)sourceFormat;
+
+/**
+ 将double数据转化为HH:mm:ss格式
+ 
+ @param timeInterval 源数据
+ @return 结果
+ */
++ (NSString *)timeStringForTimeInterval:(double)timeInterval;
+
+/**
+ HH:mm:ss格式的文本转化为时长
+
+ @return 结果
+ */
+- (NSInteger)timeStampWithDateFormat;
 
 /**
  计算工作时长

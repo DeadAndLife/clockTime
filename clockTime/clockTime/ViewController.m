@@ -91,6 +91,8 @@
     
     [super viewWillAppear:animated];
     
+    [self dataModelInit];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -149,7 +151,7 @@
 
 - (void)updateHomeView {
     
-    if (!self.homeView.sourceModel) {
+    if (!self.homeView) {
         self.homeView = [[NSBundle mainBundle] loadNibNamed:@"QDHomeView" owner:self options:nil][0];
 
         self.homeView.frame = CGRectMake(0, 64, QYScreenW, QYScreenH - 64 - 44);
@@ -415,7 +417,11 @@
 //设置
 - (IBAction)settingButtonClick:(UIButton *)sender {
     
+    QDSettingTableViewController *settingVC = [[QDSettingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settingVC];
+    
+    [self presentViewController:navController animated:YES completion:nil];
     
 }
 
@@ -477,6 +483,10 @@
 
 //签退
 - (IBAction)signOutButtonClick:(UIButton *)sender {
+    
+    if ([self.todayModel.signInTime isEqualToString:@"0"]) {
+        return;
+    }
     
     __weak typeof(self) weakSelf = self;
     

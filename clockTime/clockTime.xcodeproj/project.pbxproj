@@ -16,7 +16,13 @@
 		44634EB01E890F820002F2E2 /* QDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634EAE1E890F820002F2E2 /* QDTableViewCell.m */; };
 		44634EB11E890F820002F2E2 /* QDTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44634EAF1E890F820002F2E2 /* QDTableViewCell.xib */; };
 		44634EB71E8913BF0002F2E2 /* NSString+timeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 44634EB61E8913BF0002F2E2 /* NSString+timeStamp.m */; };
-		448C5F221E1A508E0021B161 /* QDSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 448C5F201E1A508E0021B161 /* QDSettingTableViewController.m */; };
+		449A5C211EA5AECB007EE571 /* QDSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A5C1F1EA5AECB007EE571 /* QDSettingTableViewController.m */; };
+		449A5C221EA5AECB007EE571 /* QDSettingTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449A5C201EA5AECB007EE571 /* QDSettingTableViewController.xib */; };
+		449A5C261EA5AFA1007EE571 /* QDSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A5C241EA5AFA1007EE571 /* QDSettingTableViewCell.m */; };
+		449A5C271EA5AFA1007EE571 /* QDSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449A5C251EA5AFA1007EE571 /* QDSettingTableViewCell.xib */; };
+		449A5C2A1EA5E56E007EE571 /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A5C291EA5E56E007EE571 /* UserDefaultsManager.m */; };
+		449A5C2D1EA5EB69007EE571 /* QDSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 449A5C2C1EA5EB69007EE571 /* QDSettingView.m */; };
+		449A5C2F1EA5EB77007EE571 /* QDSettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449A5C2E1EA5EB77007EE571 /* QDSettingView.xib */; };
 		44A4937B1E88B76E0076B167 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A4937A1E88B76E0076B167 /* main.m */; };
 		44A4937E1E88B76E0076B167 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A4937D1E88B76E0076B167 /* AppDelegate.m */; };
 		44A493811E88B76E0076B167 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A493801E88B76E0076B167 /* ViewController.m */; };
@@ -45,8 +51,17 @@
 		44634EAF1E890F820002F2E2 /* QDTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDTableViewCell.xib; sourceTree = "<group>"; };
 		44634EB51E8913BF0002F2E2 /* NSString+timeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+timeStamp.h"; sourceTree = "<group>"; };
 		44634EB61E8913BF0002F2E2 /* NSString+timeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+timeStamp.m"; sourceTree = "<group>"; };
-		448C5F1F1E1A508E0021B161 /* QDSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSettingTableViewController.h; sourceTree = "<group>"; };
-		448C5F201E1A508E0021B161 /* QDSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSettingTableViewController.m; sourceTree = "<group>"; };
+		449A5C1E1EA5AECB007EE571 /* QDSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSettingTableViewController.h; sourceTree = "<group>"; };
+		449A5C1F1EA5AECB007EE571 /* QDSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSettingTableViewController.m; sourceTree = "<group>"; };
+		449A5C201EA5AECB007EE571 /* QDSettingTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDSettingTableViewController.xib; sourceTree = "<group>"; };
+		449A5C231EA5AFA1007EE571 /* QDSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSettingTableViewCell.h; sourceTree = "<group>"; };
+		449A5C241EA5AFA1007EE571 /* QDSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSettingTableViewCell.m; sourceTree = "<group>"; };
+		449A5C251EA5AFA1007EE571 /* QDSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDSettingTableViewCell.xib; sourceTree = "<group>"; };
+		449A5C281EA5E56E007EE571 /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
+		449A5C291EA5E56E007EE571 /* UserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsManager.m; sourceTree = "<group>"; };
+		449A5C2B1EA5EB69007EE571 /* QDSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSettingView.h; sourceTree = "<group>"; };
+		449A5C2C1EA5EB69007EE571 /* QDSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSettingView.m; sourceTree = "<group>"; };
+		449A5C2E1EA5EB77007EE571 /* QDSettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDSettingView.xib; sourceTree = "<group>"; };
 		44A493761E88B76E0076B167 /* clockTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = clockTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44A4937A1E88B76E0076B167 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		44A4937C1E88B76E0076B167 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,6 +104,12 @@
 				44634EAD1E890F820002F2E2 /* QDTableViewCell.h */,
 				44634EAE1E890F820002F2E2 /* QDTableViewCell.m */,
 				44634EAF1E890F820002F2E2 /* QDTableViewCell.xib */,
+				449A5C231EA5AFA1007EE571 /* QDSettingTableViewCell.h */,
+				449A5C241EA5AFA1007EE571 /* QDSettingTableViewCell.m */,
+				449A5C251EA5AFA1007EE571 /* QDSettingTableViewCell.xib */,
+				449A5C2B1EA5EB69007EE571 /* QDSettingView.h */,
+				449A5C2C1EA5EB69007EE571 /* QDSettingView.m */,
+				449A5C2E1EA5EB77007EE571 /* QDSettingView.xib */,
 				445BAE9F1E9CD3CD00FABB4C /* QDHomeView.h */,
 				445BAEA01E9CD3CD00FABB4C /* QDHomeView.m */,
 				445BAEA21E9CD3F800FABB4C /* QDHomeView.xib */,
@@ -101,8 +122,9 @@
 			children = (
 				44A4937F1E88B76E0076B167 /* ViewController.h */,
 				44A493801E88B76E0076B167 /* ViewController.m */,
-				448C5F1F1E1A508E0021B161 /* QDSettingTableViewController.h */,
-				448C5F201E1A508E0021B161 /* QDSettingTableViewController.m */,
+				449A5C1E1EA5AECB007EE571 /* QDSettingTableViewController.h */,
+				449A5C1F1EA5AECB007EE571 /* QDSettingTableViewController.m */,
+				449A5C201EA5AECB007EE571 /* QDSettingTableViewController.xib */,
 				44A493821E88B76E0076B167 /* Main.storyboard */,
 				44A493871E88B76E0076B167 /* LaunchScreen.storyboard */,
 			);
@@ -130,6 +152,8 @@
 				44A4938A1E88B76E0076B167 /* Info.plist */,
 				44A4937C1E88B76E0076B167 /* AppDelegate.h */,
 				44A4937D1E88B76E0076B167 /* AppDelegate.m */,
+				449A5C281EA5E56E007EE571 /* UserDefaultsManager.h */,
+				449A5C291EA5E56E007EE571 /* UserDefaultsManager.m */,
 				44A493851E88B76E0076B167 /* Assets.xcassets */,
 			);
 			name = others;
@@ -254,8 +278,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				449A5C2F1EA5EB77007EE571 /* QDSettingView.xib in Resources */,
+				449A5C271EA5AFA1007EE571 /* QDSettingTableViewCell.xib in Resources */,
 				44634EB11E890F820002F2E2 /* QDTableViewCell.xib in Resources */,
 				44A493891E88B76E0076B167 /* LaunchScreen.storyboard in Resources */,
+				449A5C221EA5AECB007EE571 /* QDSettingTableViewController.xib in Resources */,
 				44A493861E88B76E0076B167 /* Assets.xcassets in Resources */,
 				445BAEA31E9CD3F800FABB4C /* QDHomeView.xib in Resources */,
 				44A493841E88B76E0076B167 /* Main.storyboard in Resources */,
@@ -319,14 +346,17 @@
 			files = (
 				44634EA21E88F5280002F2E2 /* QDModel.m in Sources */,
 				44A493811E88B76E0076B167 /* ViewController.m in Sources */,
+				449A5C2A1EA5E56E007EE571 /* UserDefaultsManager.m in Sources */,
+				449A5C2D1EA5EB69007EE571 /* QDSettingView.m in Sources */,
 				44A4937E1E88B76E0076B167 /* AppDelegate.m in Sources */,
 				44A4937B1E88B76E0076B167 /* main.m in Sources */,
+				449A5C261EA5AFA1007EE571 /* QDSettingTableViewCell.m in Sources */,
 				44634EB01E890F820002F2E2 /* QDTableViewCell.m in Sources */,
 				44634EB71E8913BF0002F2E2 /* NSString+timeStamp.m in Sources */,
 				44634EA51E8907980002F2E2 /* NSMutableDictionary+setObj.m in Sources */,
 				44634E9C1E88F4380002F2E2 /* QDDataBaseTool.m in Sources */,
 				445BAEA11E9CD3CD00FABB4C /* QDHomeView.m in Sources */,
-				448C5F221E1A508E0021B161 /* QDSettingTableViewController.m in Sources */,
+				449A5C211EA5AECB007EE571 /* QDSettingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +475,7 @@
 			baseConfigurationReference = 7F912100AC0CB4FB74BAAE07 /* Pods-clockTime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = DSW48G58Q5;
 				INFOPLIST_FILE = clockTime/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -455,6 +486,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlucy.clockTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -463,6 +496,7 @@
 			baseConfigurationReference = ED1D0C599CA4858167A23D37 /* Pods-clockTime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = DSW48G58Q5;
 				INFOPLIST_FILE = clockTime/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -473,6 +507,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlucy.clockTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

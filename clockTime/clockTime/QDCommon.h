@@ -20,17 +20,19 @@
  */
 #define colRGB(R,G,B,A) [UIColor colorWithRed:R / 256.0 green:G / 256.0 blue:B / 256.0 alpha:A]
 
-typedef struct _TimeRange {
-    NSInteger               minTime;//最小时间
-    NSInteger               maxTime;//最大时间
-}TimeRange;
+#import "QDDataBaseTool.h"
 
-typedef NS_ENUM(NSInteger, TimeScope) {
-    oneDay,//当天信息
-    yesterday,//昨天信息
-    currentMonth,//本月信息
-    precedingMonth,//上月信息
-};
+//typedef struct _TimeRange {
+//    NSInteger               minTime;//最小时间
+//    NSInteger               maxTime;//最大时间
+//}TimeRange;
+//
+//typedef NS_ENUM(NSInteger, TimeScope) {
+//    oneDay,//当天信息
+//    yesterday,//昨天信息
+//    currentMonth,//本月信息
+//    precedingMonth,//上月信息
+//};
 
 static NSString * const kTodayDate = @"todayDate";//签到时间
 static NSString * const kSignInTime = @"signInTime";//签到时间
@@ -39,7 +41,8 @@ static NSString * const kWorkDuration = @"workDuration";//今日工作时长
 static NSString * const kVacationTime = @"vacationTime";//当前存休时长
 static NSString * const kKnockOffTime = @"knockOffTime";//理论下班时间
 
-#import "QDDataBaseTool.h"
+#import "UserDefaultsManager.h"
 #import "NSString+timeStamp.h"
+
 
 #endif /* QDCommon_h */

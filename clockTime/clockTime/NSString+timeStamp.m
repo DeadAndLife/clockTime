@@ -6,11 +6,11 @@
 //  Copyright © 2017年 iOSDeveloper. All rights reserved.
 //
 
-#import "NSString+timeStamp.h"
+#import "QDCommon.h"
 
 @implementation NSString (timeStamp)
 
-
+/*
 + (TimeRange)timeRangeWithtarget:(TimeScope)target {
     
     TimeRange timeRange;
@@ -152,6 +152,7 @@
     return timeRange;
     
 }
+*/
 
 + (NSString *)stringForTimeStamp:(NSString *)dateFormat {
     
@@ -187,6 +188,16 @@
     
 }
 
++ (NSString *)timeStringForTimeInterval:(double)timeInterval {
+    
+    NSInteger second = (NSInteger)timeInterval % 60;
+    NSInteger minute = (NSInteger)timeInterval / 60 % 60;
+    NSInteger hour = (NSInteger)timeInterval / 60 / 60;
+    
+    return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+    
+}
+
 - (NSInteger)timeStampWithDateFormat {
     
     NSArray *timeArr = [self componentsSeparatedByString:@":"];
@@ -207,7 +218,7 @@
     if (stratTime < 12 * 60 * 60 && endTime > 12 * 60 * 60) {//签到在上午且签退在下午，需扣除午休时间
         
         //减去午休时长
-        NSUInteger siestaTime = 90 * 60;
+        NSUInteger siestaTime = [[UserDefaultsManager lunchTime] timeStampWithDateFormat];
         return [NSString stringWithFormat:@"%0ld", (endTime - stratTime - siestaTime)];
         
     } else {
@@ -220,7 +231,7 @@
 
 + (NSString *)vacationTimeByLastVacation:(NSString *)lastVacation workDuration:(NSString *)workDuration {
         
-    return [NSString stringWithFormat:@"%0f", lastVacation.doubleValue + workDuration.doubleValue - 28800.0f];
+    return [NSString stringWithFormat:@"%0f", lastVacation.doubleValue + workDuration.doubleValue - [[UserDefaultsManager workTime] timeStampWithDateFormat]];
 
 }
 

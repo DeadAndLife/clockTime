@@ -1,13 +1,19 @@
 //
 //  QDSettingTableViewController.h
-//  clockTime
+//  
 //
-//  Created by iOSDeveloper on 2017/1/2.
-//  Copyright © 2017年 iOSDeveloper. All rights reserved.
+//  Created by iOSDeveloper on 2017/4/18.
+//
 //
 
 #import <UIKit/UIKit.h>
 
 @interface QDSettingTableViewController : UITableViewController
+
+@end
+
+@protocol QDSettingTableViewController <NSObject>
+
+- (IBAction)switchClick:(UISwitch *)sender;
 
 @end
