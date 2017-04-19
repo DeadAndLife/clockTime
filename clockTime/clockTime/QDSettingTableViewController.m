@@ -253,9 +253,16 @@
         case 2:{
             if (!cell.signSwitch) {
                 
-                cell.signSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(QYScreenW - 49 - 20, (cell.bounds.size.height - 31) / 2, 49, 31)];
+                cell.signSwitch = [[UISwitch alloc] init];
+                cell.signSwitch.translatesAutoresizingMaskIntoConstraints = NO;
                 
-                [cell addSubview:cell.signSwitch];
+                [cell.contentView addSubview:cell.signSwitch];
+                
+                NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:cell.signSwitch attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-20.0f];
+                NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:cell.signSwitch attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f];
+                
+                [cell.contentView addConstraint:rightConstraint];
+                [cell.contentView addConstraint:centerYConstraint];
                 
             }
             

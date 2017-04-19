@@ -20,6 +20,11 @@
 
 + (NSString *)workTime;
 
+/**
+ 默认值为0，与实际使用情况相反
+
+ @return 结果 0:有提示   1:无提示
+ */
 + (BOOL)promptOn;
 
 @end
