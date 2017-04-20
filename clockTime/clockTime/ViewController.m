@@ -13,11 +13,13 @@
 #import "QDCommon.h"
 #import "NSString+timeStamp.h"
 
-@interface ViewController ()<UIGestureRecognizerDelegate>
+@interface ViewController ()<UIGestureRecognizerDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic, strong) UIBarButtonItem *nextBarButton;
 
 @property (nonatomic, strong) UIBarButtonItem *previousBarButton;
+
+@property (nonatomic, strong) UIPickerView *datePicker;
 
 @property (nonatomic, strong) QDModel *yesterdayModel;
 
@@ -26,6 +28,37 @@
 @property (nonatomic, strong) QDModel *tomorrowModel;
 
 @property (weak, nonatomic) IBOutlet QDHomeView *homeView;
+
+@property (nonatomic, strong) NSArray *yearArray;
+
+@property (nonatomic, strong) NSArray *monthArray;
+
+@property (nonatomic, strong) NSArray *dayArray;
+
+/**
+ 日期的字典，分三层结构
+ 
+ * .eg
+ *{
+ *  "2016": {
+ *      "12": [
+ *          22,
+ *          25
+ *      ]
+ *  },
+ *  "2017": {
+ *      "1": [
+ *          1,
+ *          2
+ *      ],
+ *      "2": [
+ *          2,
+ *          3
+ *      ]
+ *  }
+ *}
+ */
+@property (nonatomic, strong) NSMutableDictionary *dateDict;
 
 @end
 
@@ -46,9 +79,8 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [self yesterdayModelInit];
-    [self todayModelInit];
-    [self tommorrowModelInit];
+    [self dataModelInit];
+    [self dateDictInit];
     
     [self navigationInit];
     
@@ -68,23 +100,46 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dataModelInit {
+    
+    [self yesterdayModelInit];
+    [self todayModelInit];
+    [self tommorrowModelInit];
+
+}
+
+- (void)allTimeArrayInit {
+    
+    _yearArray = [_dateDict.allKeys sortedArrayUsingSelector:@selector(compare:)];
+    
+    _monthArray = [((NSDictionary *)[_dateDict valueForKey:_yearArray[0]]).allKeys sortedArrayUsingSelector:@selector(compare:)];
+    
+    _dayArray = [(NSDictionary *)[_dateDict valueForKey:_yearArray[0]] valueForKey:_monthArray[0]];
+    
+}
+
+
 - (void)navigationInit {
     
     UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
     [leftBtn setImage:[UIImage imageNamed:@"calendar"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(datePickerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *left01 = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    
     UIButton *previousBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
     [previousBtn setImage:[UIImage imageNamed:@"previous"] forState:UIControlStateNormal];
+    [previousBtn addTarget:self action:@selector(previousButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.previousBarButton = [[UIBarButtonItem alloc] initWithCustomView:previousBtn];
     
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 43, 32)];
     [rightBtn setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(settingButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *right01 = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-//    UIBarButtonItem *right01 = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"setting"] landscapeImagePhone:[UIImage imageNamed:@"calender"] style:UIBarButtonItemStylePlain target:self action:nil];
+    
     UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
     [nextBtn setImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
+    [nextBtn addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.nextBarButton = [[UIBarButtonItem alloc] initWithCustomView:nextBtn];
-//    self.nextBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"next"] style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonClick:)];
     self.nextBarButton.enabled = NO;
     
     self.navigationItem.leftBarButtonItems = @[left01, self.previousBarButton];
@@ -112,6 +167,10 @@
     
     self.homeView.sourceModel = self.todayModel;
     
+    self.previousBarButton.enabled = self.yesterdayModel ? YES : NO;
+    
+    self.nextBarButton.enabled = self.tomorrowModel ? YES : NO;
+    
 }
 
 #pragma mark - 数据库相关
@@ -128,12 +187,10 @@
                                       if (resposeObjc.count) {
                                           
                                           weakSelf.yesterdayModel = resposeObjc[0];
-                                          weakSelf.nextBarButton.enabled = YES;
                                           
                                       } else {
                                           
                                           weakSelf.yesterdayModel = nil;
-                                          weakSelf.previousBarButton.enabled = NO;
                                           
                                       }
                                       
@@ -178,14 +235,12 @@
                                       if (resposeObjc.count) {
                                           
                                           weakSelf.tomorrowModel = resposeObjc[0];
-                                          weakSelf.previousBarButton.enabled = YES;
                                           
                                       } else {
                                           
                                           if ([weakSelf.todayModel.todayDate isEqualToString:[NSString stringForTimeStamp:@"YYYY-MM-dd"]]) {//
                                               
                                               weakSelf.tomorrowModel = nil;
-                                              weakSelf.nextBarButton.enabled = NO;
                                               
                                           } else {
                                               
@@ -196,6 +251,78 @@
                                       }
                                       
                                       [weakSelf updateHomeView];
+                                      
+                                  }];
+    
+}
+
+- (void)dateDictInit {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    if (!self.dateDict) {
+        self.dateDict = [NSMutableDictionary dictionary];
+    }
+    
+    [QDDataBaseTool selectStatementsSql:SELECT_KEY(kTodayDate)
+                         withParsmeters:nil
+                                forMode:nil
+                                  block:^(NSMutableArray *resposeObjc, NSString *errorMsg) {
+                                     
+                                      if (resposeObjc.count) {
+                                          
+                                          [resposeObjc enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                             
+                                              if ([obj isKindOfClass:[NSDictionary class]]) {
+                                                  
+                                                  NSDictionary *dict = (NSDictionary *)obj;
+                                                  
+                                                  NSString *dateString = [dict valueForKey:kTodayDate];
+                                                  //年，月，日
+                                                  NSArray *dateArray = [dateString componentsSeparatedByString:@"-"];
+                                                  NSString *monthString = [NSString stringWithFormat:@"%@-%@", dateArray[0], dateArray[1]];
+                                                  
+                                                  NSMutableDictionary *yearDict = [NSMutableDictionary dictionary];
+                                                  NSMutableArray *month = [NSMutableArray array];
+                                                  
+                                                  if ([weakSelf.dateDict valueForKey:dateArray[0]]) {//存在本年的数据
+                                                      
+                                                      yearDict = [weakSelf.dateDict valueForKey:dateArray[0]];
+                                                      
+                                                      if ([yearDict valueForKey:monthString]) {//存在本月数据
+                                                          
+                                                          month = [yearDict valueForKey:monthString];
+                                                          [month addObject:dateString];
+                                                          
+                                                      } else {
+                                                          
+                                                          [month addObject:dateString];
+                                                          
+                                                          [yearDict setObject:month forKey:monthString];
+                                                          
+                                                      }
+                                                      
+                                                  } else {
+                                                      
+                                                      [month addObject:dateString];
+                                                      
+                                                      [yearDict setValue:month forKey:monthString];
+                                                      
+                                                      [weakSelf.dateDict setValue:yearDict forKey:dateArray[0]];
+                                                      
+                                                  }
+                                                  
+                                              }
+                                              
+                                          }];
+                                          
+                                          [weakSelf allTimeArrayInit];
+                                          
+                                      } else {
+                                          
+                                          
+                                          
+                                      }
                                       
                                   }];
     
@@ -230,6 +357,68 @@
     
 }
 
+//日期选择
+- (IBAction)datePickerButtonClick:(UIButton *)sender {
+    
+    [self allTimeArrayInit];
+    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //背景
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, QYScreenW, QYScreenH)];
+    //当前imageview的原始尺寸->将像素currentImageview.bounds由currentImageview.bounds所在视图转换到目标视图window中，返回在目标视图window中的像素值
+    [backgroundView setBackgroundColor:colRGB(220, 220, 220, 0.8)];
+    
+    UIPickerView *datePicker = [[UIPickerView alloc] init];
+    CGPoint center = backgroundView.center;
+    datePicker.center = CGPointMake(center.x, center.y - 100);
+    
+    datePicker.delegate = self;
+    datePicker.dataSource = self;
+    _datePicker = datePicker;
+    
+    UIButton *selectButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 25)];
+    [selectButton setTitle:@"查询" forState:UIControlStateNormal];
+    [selectButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    selectButton.center = CGPointMake(center.x + 50, center.y + 100);
+    [selectButton addTarget:self action:@selector(searchOneDay:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 25)];
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    cancelButton.center = CGPointMake(center.x - 50, center.y + 100);
+    [cancelButton addTarget:backgroundView action:@selector(removeFromSuperview) forControlEvents:UIControlEventTouchUpInside];
+    
+    backgroundView.userInteractionEnabled = YES;
+    
+    [backgroundView addSubview:selectButton];
+    [backgroundView addSubview:cancelButton];
+    [backgroundView addSubview:_datePicker];
+    
+    //将原始视图添加到背景视图中
+    [window addSubview:backgroundView];
+    
+}
+
+//查询某天纪录
+- (IBAction)searchOneDay:(UIButton *)sender {
+    
+    NSInteger dayNum = [_datePicker selectedRowInComponent:2];
+    
+    self.todayDate = _dayArray[dayNum];
+    [self dataModelInit];
+    self.navigationItem.title = [self.todayDate goalFormat:@"EEE MM-dd" sourceFormat:@"YYYY-MM-dd"];
+    
+    [sender.superview removeFromSuperview];
+    
+}
+
+//设置
+- (IBAction)settingButtonClick:(UIButton *)sender {
+    
+    
+    
+}
+
 //签到
 - (IBAction)signInButtonClick:(UIButton *)sender {
     
@@ -244,7 +433,17 @@
     [dict setValue:signInTime forKey:kSignInTime];
     [dict setValue:@"0" forKey:kSignOutTime];
     [dict setValue:@"0" forKey:kWorkDuration];
-    [dict setValue:@"0" forKey:kVacationTime];
+    
+    if ([[self.todayDate componentsSeparatedByString:@"-"][2] isEqualToString:@"01"] || !self.yesterdayModel.vacationTime) {
+        
+        [dict setValue:@"0" forKey:kVacationTime];
+        
+    } else {
+        
+        [dict setValue:self.yesterdayModel.vacationTime forKey:kVacationTime];
+        
+    }
+
     [dict setValue:@"0" forKey:kKnockOffTime];
     
     [QDDataBaseTool updateStatementsSql:INSERT_SQL
@@ -254,6 +453,17 @@
                                       if (isOk) {
                                           
                                           weakSelf.todayModel.signInTime = signInTime;
+                                          
+                                          if ([[weakSelf.todayDate componentsSeparatedByString:@"-"][2] isEqualToString:@"01"] || !weakSelf.yesterdayModel.vacationTime) {
+                                              
+                                              weakSelf.todayModel.vacationTime = @"0";
+                                              
+                                          } else {
+                                              
+                                              weakSelf.todayModel.vacationTime = weakSelf.yesterdayModel.vacationTime;
+                                              
+                                          }
+                                          
                                           [weakSelf updateHomeView];
                                           
                                       } else {
@@ -299,15 +509,53 @@
     
 }
 
-//上月历史
-- (IBAction)precedingMonthButtonClick:(UIButton *)sender {
+#pragma mark  -UIPickerViewDataSource
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 3;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
+    return component == 0 ? _yearArray.count : component == 1 ? _monthArray.count : _dayArray.count;
+
+}
+
+#pragma mark  -UIPickerViewDelegate
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    return component == 0 ? _yearArray[row] : component == 1 ? [_monthArray[row] componentsSeparatedByString:@"-"][1] : [_dayArray[row] componentsSeparatedByString:@"-"][2] ;
     
 }
 
-//当前月历史
-- (IBAction)currentMonthButtonClick:(UIButton *)sender {
-    
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    if (component == 0) {
+        //获取左边列选中的行内容
+        NSString *key = _yearArray[row];
+        //获取对应的右列中的数组
+        _monthArray = [((NSDictionary *)[_dateDict valueForKey:key]).allKeys sortedArrayUsingSelector:@selector(compare:)];
+        _dayArray = [(NSDictionary *)[_dateDict valueForKey:key] valueForKey:_monthArray[0]];
+        
+        //刷新右列
+        [pickerView reloadComponent:1];
+        [pickerView reloadComponent:2];
+        
+        //强制选中右列第0行
+        [pickerView selectRow:0 inComponent:1 animated:YES];
+        [pickerView selectRow:0 inComponent:2 animated:YES];
+    } else if (component == 1) {
+        //获取左边列选中的行内容
+        NSString *key = _monthArray[row];
+        //获取对应的右列中的数组
+        _dayArray = [(NSDictionary *)[_dateDict valueForKey:[key componentsSeparatedByString:@"-"][0]] valueForKey:key];
+        
+        //刷新右列
+        [pickerView reloadComponent:2];
+        
+        //强制选中右列第0行
+        [pickerView selectRow:0 inComponent:2 animated:YES];
+
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate

@@ -17,7 +17,6 @@
 
 @end
 
-
 @implementation QDHomeView
 
 /*
@@ -72,8 +71,17 @@
         
     } else {
         
-        [self.signOutButton setTitle:@"签退" forState:UIControlStateNormal];
-        [self.signOutButton.titleLabel setFont:[UIFont systemFontOfSize:20.0f]];
+        if ([_sourceModel.todayDate isEqualToString:[NSString stringForTimeStamp:@"YYYY-MM-dd"]]) {//若是今天
+            
+            [self.signOutButton setTitle:@"签退" forState:UIControlStateNormal];
+            [self.signOutButton.titleLabel setFont:[UIFont systemFontOfSize:20.0f]];
+            
+        } else {
+            
+            [self.signOutButton setTitle:@"未签退" forState:UIControlStateNormal];
+            [self.signOutButton.titleLabel setFont:[UIFont systemFontOfSize:17.0f]];
+            
+        }
         
     }
     

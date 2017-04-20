@@ -12,6 +12,14 @@
 #define QYScreenW [UIScreen mainScreen].bounds.size.width
 #define QYScreenH [UIScreen mainScreen].bounds.size.height
 
+/*随机色
+ */
+#define ranCol(alph) [UIColor colorWithRed:(arc4random() % 256) / 256.0 green:(arc4random() % 256) / 256.0 blue:(arc4random() % 256) / 256.0 alpha:alph]
+/*R,G,B    请使用256色，即0~255
+ * A            透明度，0~1
+ */
+#define colRGB(R,G,B,A) [UIColor colorWithRed:R / 256.0 green:G / 256.0 blue:B / 256.0 alpha:A]
+
 typedef struct _TimeRange {
     NSInteger               minTime;//最小时间
     NSInteger               maxTime;//最大时间

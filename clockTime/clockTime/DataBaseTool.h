@@ -37,6 +37,8 @@
 //查询所有的数据
 #define SELECT_ALL(minValue, maxValue) [NSString stringWithFormat:@"SELECT * from qiandao WHERE signInTime BETWEEN %ld AND %ld", (minValue), (maxValue)]
 
+#define SELECT_KEY(key) [NSString stringWithFormat:@"SELECT %@ from qiandao", (key)]
+
 #define SELECT_TODAY(todayDate) [NSString stringWithFormat:@"SELECT * from qiandao WHERE todayDate = '%@'", (todayDate)]
 
 #define SELECT_PREVIOUS(todayDate) [NSString stringWithFormat:@"SELECT * from qiandao WHERE todayDate < '%@' ORDER BY todayDate desc limit 1", (todayDate)]
