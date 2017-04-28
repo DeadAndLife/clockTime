@@ -230,7 +230,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 4;
+    return 5;
     
 }
 
@@ -274,6 +274,10 @@
             
         }
             break;
+        case 4:{
+            
+        }
+            break;
         default:
             break;
     }
@@ -285,6 +289,9 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -413,6 +420,48 @@
             
             //将原始视图添加到背景视图中
             [window addSubview:backgroundView];
+        }
+            break;
+        case 4:{
+            
+            __weak typeof(self) weakSelf = self;
+
+            [QDDataBaseTool selectStatementsSql:SELECT_ALLDATA
+                                 withParsmeters:nil
+                                        forMode:nil
+                                          block:^(NSMutableArray *resposeObjc, NSString *errorMsg) {
+                                             
+                                              if (resposeObjc.count) {
+                                                  
+                                                  NSFileManager *fm = [NSFileManager defaultManager];
+                                                  
+                                                  NSString *fileName = [NSString stringWithFormat:@"%@.csv", [NSString stringForTimeStamp:@"YYYY-MM-dd"]];
+                                                  
+                                                  NSString *filePath;
+                                                  
+                                                  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:resposeObjc];
+                                                  
+                                                  if ([fm fileExistsAtPath:fileName]) {
+                                                      
+                                                      return;
+                                                      
+                                                  } else {
+                                                      
+                                                      NSString *libraryCaches = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
+                                                      filePath =  [libraryCaches stringByAppendingPathComponent:fileName];
+                                                      
+                                                      [fm createFileAtPath:filePath contents:data attributes:nil];
+                                                      
+                                                  }
+                                                  
+                                              } else {
+                                                  
+                                                  NSLog(@"%@", errorMsg);
+                                                  
+                                              }
+                                              
+                                          }];
+            
         }
             break;
         default:

@@ -1,20 +1,17 @@
 PODS:
+  - CorePlot (2.2)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
-  - PNChart (0.8.9):
-    - UICountingLabel (~> 1.2.0)
-  - UICountingLabel (1.2.0)
 
 DEPENDENCIES:
+  - CorePlot
   - FMDB
-  - PNChart
 
 SPEC CHECKSUMS:
+  CorePlot: cbe0c6e14220705e32e06a89c7d6a5a908b7d7d8
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2
-  UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-PODFILE CHECKSUM: 907e756b1ec36cb4b5d59a6f8c9994f76028c216
+PODFILE CHECKSUM: 06576659be88438018106fa982035032d3a5bd07
 
 COCOAPODS: 1.2.1.beta.1

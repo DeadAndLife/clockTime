@@ -37,6 +37,8 @@
 //查询所有的数据
 #define SELECT_ALL(minValue, maxValue) [NSString stringWithFormat:@"SELECT * from qiandao WHERE signInTime BETWEEN %ld AND %ld", (minValue), (maxValue)]
 
+#define SELECT_ALLDATA [NSString stringWithFormat:@"SELECT * from qiandao"]
+
 #define SELECT_KEY(key) [NSString stringWithFormat:@"SELECT %@ from qiandao", (key)]
 
 #define SELECT_TODAY(todayDate) [NSString stringWithFormat:@"SELECT * from qiandao WHERE todayDate = '%@'", (todayDate)]
@@ -47,5 +49,8 @@
 
 //删除数据
 #define DELETE_SQL(minValue, maxValue) [NSString stringWithFormat:@"DELETE from qiandao WHERE todayDate BETWEEN '%@' AND '%@'", (minValue), (maxValue)]
+
+//导出文件
+#define EXPORT_FILE(filePath) [NSString stringWithFormat:@"SELECT * from qiandao INTO outfile '%@' fields terminated by ',' optionally enclosed by '\"' escaped by '\"' lines terminated by '\r\n'", (filePath)]
 
 #endif /* DataBaseTool_h */
