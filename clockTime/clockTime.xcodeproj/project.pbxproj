@@ -29,8 +29,49 @@
 		44A493841E88B76E0076B167 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44A493821E88B76E0076B167 /* Main.storyboard */; };
 		44A493861E88B76E0076B167 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44A493851E88B76E0076B167 /* Assets.xcassets */; };
 		44A493891E88B76E0076B167 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44A493871E88B76E0076B167 /* LaunchScreen.storyboard */; };
+		44A5537F1EDFBA9C00D8147D /* holiday.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44A5537E1EDFBA9C00D8147D /* holiday.plist */; };
+		44A553811EDFC37100D8147D /* dataBaseConfigure.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44A553801EDFC37100D8147D /* dataBaseConfigure.plist */; };
+		44CC2CAE1EC551300071AB61 /* IntentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2CAD1EC551300071AB61 /* IntentHandler.m */; };
+		44CC2CB61EC551300071AB61 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CC2CB51EC551300071AB61 /* IntentsUI.framework */; };
+		44CC2CBA1EC551300071AB61 /* IntentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CC2CB91EC551300071AB61 /* IntentViewController.m */; };
+		44CC2CBD1EC551300071AB61 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44CC2CBB1EC551300071AB61 /* MainInterface.storyboard */; };
+		44CC2CC11EC551300071AB61 /* clockTimeSiriUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 44CC2CB41EC551300071AB61 /* clockTimeSiriUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		44CC2CC41EC551300071AB61 /* clockTimeSiri.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 44CC2CAA1EC551300071AB61 /* clockTimeSiri.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		44CC2CCD1EC553170071AB61 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CC2CCC1EC553170071AB61 /* CoreLocation.framework */; };
 		8F1B5727AB3BDABCA5D83BAF /* libPods-clockTime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C9208E8805E6B190E7ABE0 /* libPods-clockTime.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		44CC2CBF1EC551300071AB61 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44A4936E1E88B76E0076B167 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44CC2CB31EC551300071AB61;
+			remoteInfo = clockTimeSiriUI;
+		};
+		44CC2CC21EC551300071AB61 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44A4936E1E88B76E0076B167 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44CC2CA91EC551300071AB61;
+			remoteInfo = clockTimeSiri;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		44CC2CCB1EC551300071AB61 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				44CC2CC11EC551300071AB61 /* clockTimeSiriUI.appex in Embed App Extensions */,
+				44CC2CC41EC551300071AB61 /* clockTimeSiri.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		21C9208E8805E6B190E7ABE0 /* libPods-clockTime.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clockTime.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +113,19 @@
 		44A493851E88B76E0076B167 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44A493881E88B76E0076B167 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44A4938A1E88B76E0076B167 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44A5537E1EDFBA9C00D8147D /* holiday.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = holiday.plist; sourceTree = "<group>"; };
+		44A553801EDFC37100D8147D /* dataBaseConfigure.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dataBaseConfigure.plist; sourceTree = "<group>"; };
+		44CC2CAA1EC551300071AB61 /* clockTimeSiri.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = clockTimeSiri.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		44CC2CAC1EC551300071AB61 /* IntentHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentHandler.h; sourceTree = "<group>"; };
+		44CC2CAD1EC551300071AB61 /* IntentHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentHandler.m; sourceTree = "<group>"; };
+		44CC2CAF1EC551300071AB61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44CC2CB41EC551300071AB61 /* clockTimeSiriUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = clockTimeSiriUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		44CC2CB51EC551300071AB61 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		44CC2CB81EC551300071AB61 /* IntentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentViewController.h; sourceTree = "<group>"; };
+		44CC2CB91EC551300071AB61 /* IntentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentViewController.m; sourceTree = "<group>"; };
+		44CC2CBC1EC551300071AB61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		44CC2CBE1EC551300071AB61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44CC2CCC1EC553170071AB61 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7F912100AC0CB4FB74BAAE07 /* Pods-clockTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clockTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-clockTime/Pods-clockTime.debug.xcconfig"; sourceTree = "<group>"; };
 		ED1D0C599CA4858167A23D37 /* Pods-clockTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clockTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-clockTime/Pods-clockTime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,6 +137,22 @@
 			files = (
 				44634E9F1E88F4ED0002F2E2 /* libsqlite3.tbd in Frameworks */,
 				8F1B5727AB3BDABCA5D83BAF /* libPods-clockTime.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CC2CA71EC551300071AB61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44CC2CCD1EC553170071AB61 /* CoreLocation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CC2CB11EC551300071AB61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44CC2CB61EC551300071AB61 /* IntentsUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +220,8 @@
 			isa = PBXGroup;
 			children = (
 				44A4938A1E88B76E0076B167 /* Info.plist */,
+				44A5537E1EDFBA9C00D8147D /* holiday.plist */,
+				44A553801EDFC37100D8147D /* dataBaseConfigure.plist */,
 				44A4937C1E88B76E0076B167 /* AppDelegate.h */,
 				44A4937D1E88B76E0076B167 /* AppDelegate.m */,
 				449A5C281EA5E56E007EE571 /* UserDefaultsManager.h */,
@@ -163,6 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				44A493781E88B76E0076B167 /* clockTime */,
+				44CC2CAB1EC551300071AB61 /* clockTimeSiri */,
+				44CC2CB71EC551300071AB61 /* clockTimeSiriUI */,
 				44A493771E88B76E0076B167 /* Products */,
 				5E5E93D21C53D387232651CF /* Pods */,
 				6630CC9214694E37101DA2C2 /* Frameworks */,
@@ -173,6 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				44A493761E88B76E0076B167 /* clockTime.app */,
+				44CC2CAA1EC551300071AB61 /* clockTimeSiri.appex */,
+				44CC2CB41EC551300071AB61 /* clockTimeSiriUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,6 +274,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		44CC2CAB1EC551300071AB61 /* clockTimeSiri */ = {
+			isa = PBXGroup;
+			children = (
+				44CC2CAC1EC551300071AB61 /* IntentHandler.h */,
+				44CC2CAD1EC551300071AB61 /* IntentHandler.m */,
+				44CC2CAF1EC551300071AB61 /* Info.plist */,
+			);
+			path = clockTimeSiri;
+			sourceTree = "<group>";
+		};
+		44CC2CB71EC551300071AB61 /* clockTimeSiriUI */ = {
+			isa = PBXGroup;
+			children = (
+				44CC2CB81EC551300071AB61 /* IntentViewController.h */,
+				44CC2CB91EC551300071AB61 /* IntentViewController.m */,
+				44CC2CBB1EC551300071AB61 /* MainInterface.storyboard */,
+				44CC2CBE1EC551300071AB61 /* Info.plist */,
+			);
+			path = clockTimeSiriUI;
+			sourceTree = "<group>";
+		};
 		5E5E93D21C53D387232651CF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,8 +307,10 @@
 		6630CC9214694E37101DA2C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44CC2CCC1EC553170071AB61 /* CoreLocation.framework */,
 				44634E9E1E88F4ED0002F2E2 /* libsqlite3.tbd */,
 				21C9208E8805E6B190E7ABE0 /* libPods-clockTime.a */,
+				44CC2CB51EC551300071AB61 /* IntentsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -229,15 +328,52 @@
 				44A493741E88B76E0076B167 /* Resources */,
 				D0C1873A8C8677C97B0A8B38 /* [CP] Embed Pods Frameworks */,
 				FADAAEA2E1A3D4A8F24AA098 /* [CP] Copy Pods Resources */,
+				44CC2CCB1EC551300071AB61 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				44CC2CC01EC551300071AB61 /* PBXTargetDependency */,
+				44CC2CC31EC551300071AB61 /* PBXTargetDependency */,
 			);
 			name = clockTime;
 			productName = clockTime;
 			productReference = 44A493761E88B76E0076B167 /* clockTime.app */;
 			productType = "com.apple.product-type.application";
+		};
+		44CC2CA91EC551300071AB61 /* clockTimeSiri */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44CC2CCA1EC551300071AB61 /* Build configuration list for PBXNativeTarget "clockTimeSiri" */;
+			buildPhases = (
+				44CC2CA61EC551300071AB61 /* Sources */,
+				44CC2CA71EC551300071AB61 /* Frameworks */,
+				44CC2CA81EC551300071AB61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = clockTimeSiri;
+			productName = clockTimeSiri;
+			productReference = 44CC2CAA1EC551300071AB61 /* clockTimeSiri.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		44CC2CB31EC551300071AB61 /* clockTimeSiriUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44CC2CC91EC551300071AB61 /* Build configuration list for PBXNativeTarget "clockTimeSiriUI" */;
+			buildPhases = (
+				44CC2CB01EC551300071AB61 /* Sources */,
+				44CC2CB11EC551300071AB61 /* Frameworks */,
+				44CC2CB21EC551300071AB61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = clockTimeSiriUI;
+			productName = clockTimeSiriUI;
+			productReference = 44CC2CB41EC551300071AB61 /* clockTimeSiriUI.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -250,6 +386,16 @@
 				TargetAttributes = {
 					44A493751E88B76E0076B167 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = DSW48G58Q5;
+						ProvisioningStyle = Automatic;
+					};
+					44CC2CA91EC551300071AB61 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = DSW48G58Q5;
+						ProvisioningStyle = Automatic;
+					};
+					44CC2CB31EC551300071AB61 = {
+						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = DSW48G58Q5;
 						ProvisioningStyle = Automatic;
 					};
@@ -269,6 +415,8 @@
 			projectRoot = "";
 			targets = (
 				44A493751E88B76E0076B167 /* clockTime */,
+				44CC2CA91EC551300071AB61 /* clockTimeSiri */,
+				44CC2CB31EC551300071AB61 /* clockTimeSiriUI */,
 			);
 		};
 /* End PBXProject section */
@@ -279,13 +427,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				449A5C2F1EA5EB77007EE571 /* QDSettingView.xib in Resources */,
+				44A5537F1EDFBA9C00D8147D /* holiday.plist in Resources */,
 				449A5C271EA5AFA1007EE571 /* QDSettingTableViewCell.xib in Resources */,
 				44634EB11E890F820002F2E2 /* QDTableViewCell.xib in Resources */,
 				44A493891E88B76E0076B167 /* LaunchScreen.storyboard in Resources */,
 				449A5C221EA5AECB007EE571 /* QDSettingTableViewController.xib in Resources */,
 				44A493861E88B76E0076B167 /* Assets.xcassets in Resources */,
 				445BAEA31E9CD3F800FABB4C /* QDHomeView.xib in Resources */,
+				44A553811EDFC37100D8147D /* dataBaseConfigure.plist in Resources */,
 				44A493841E88B76E0076B167 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CC2CA81EC551300071AB61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CC2CB21EC551300071AB61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44CC2CBD1EC551300071AB61 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +525,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44CC2CA61EC551300071AB61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44CC2CAE1EC551300071AB61 /* IntentHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CC2CB01EC551300071AB61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44CC2CBA1EC551300071AB61 /* IntentViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		44CC2CC01EC551300071AB61 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44CC2CB31EC551300071AB61 /* clockTimeSiriUI */;
+			targetProxy = 44CC2CBF1EC551300071AB61 /* PBXContainerItemProxy */;
+		};
+		44CC2CC31EC551300071AB61 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44CC2CA91EC551300071AB61 /* clockTimeSiri */;
+			targetProxy = 44CC2CC21EC551300071AB61 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		44A493821E88B76E0076B167 /* Main.storyboard */ = {
@@ -377,6 +571,14 @@
 				44A493881E88B76E0076B167 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		44CC2CBB1EC551300071AB61 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44CC2CBC1EC551300071AB61 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -511,6 +713,62 @@
 			};
 			name = Release;
 		};
+		44CC2CC51EC551300071AB61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = DSW48G58Q5;
+				INFOPLIST_FILE = clockTimeSiri/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zlucy.clockTime.clockTimeSiri;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		44CC2CC61EC551300071AB61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = DSW48G58Q5;
+				INFOPLIST_FILE = clockTimeSiri/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zlucy.clockTime.clockTimeSiri;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		44CC2CC71EC551300071AB61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = DSW48G58Q5;
+				INFOPLIST_FILE = clockTimeSiriUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zlucy.clockTime.clockTimeSiriUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		44CC2CC81EC551300071AB61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = DSW48G58Q5;
+				INFOPLIST_FILE = clockTimeSiriUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zlucy.clockTime.clockTimeSiriUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -528,6 +786,24 @@
 			buildConfigurations = (
 				44A4938E1E88B76E0076B167 /* Debug */,
 				44A4938F1E88B76E0076B167 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44CC2CC91EC551300071AB61 /* Build configuration list for PBXNativeTarget "clockTimeSiriUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44CC2CC71EC551300071AB61 /* Debug */,
+				44CC2CC81EC551300071AB61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44CC2CCA1EC551300071AB61 /* Build configuration list for PBXNativeTarget "clockTimeSiri" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44CC2CC51EC551300071AB61 /* Debug */,
+				44CC2CC61EC551300071AB61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

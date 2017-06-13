@@ -40,6 +40,8 @@
     [dict setValue:@"0" forKey:kVacationTime];
     [dict setValue:@"0" forKey:kKnockOffTime];
     
+    [dict setValue:[NSString holidayForOneDay:[NSString stringForTimeStamp:@"YYYY-MM-dd"]] ? @"YES" : @"NO" forKey:kIsHoliday];
+    
     return [self qiandaoModelWithDictionary:dict];
 }
 

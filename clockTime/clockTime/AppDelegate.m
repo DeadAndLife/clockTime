@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "QDCommon.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,116 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSUserDefaults *userInfo = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *dataBaseConfigure = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"dataBaseConfigure" ofType:@"plist"]];
+    
+    [QDDataBaseTool updateStatementsSql:@"drop table qiandao_temp;"
+                         withParsmeters:nil
+                                  block:^(BOOL isOk, NSString *errorMsg) {
+                                      
+                                      if (!isOk) {
+//                                          finish = NO;
+                                          NSLog(@"%@", errorMsg);
+                                      }
+                                      
+                                  }];
+    
+    if (![userInfo stringForKey:@"dataBaseVersion"] || ![[userInfo stringForKey:@"dataBaseVersion"] isEqualToString:dataBaseConfigure[@"version"]]) {
+        
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] init];
+        activityView.activityIndicatorViewStyle =  UIActivityIndicatorViewStyleWhiteLarge;
+        activityView.center = [UIApplication sharedApplication].keyWindow.center;
+        
+        [[UIApplication sharedApplication].keyWindow addSubview:activityView];
+        
+        [activityView startAnimating];
+        
+        NSArray *feildsArray = dataBaseConfigure[@"updateField"];
+        
+        dispatch_queue_t addFieldQueue = dispatch_queue_create("addField", NULL);
+        
+        __block BOOL finish = YES;
+        
+        NSString *newFieldsType = @"";
+        NSString *newFields = @"";
+        NSString *oldFields = @"";
+        
+        for (NSString *addString in feildsArray) {
+            
+            if ([addString isEqualToString:@"todayDate"]) {
+                if ([feildsArray.firstObject isEqualToString:addString]) {
+                    newFieldsType = @"todayDate text primary key";
+                    newFields = @"'todayDate'";
+                    oldFields = @"todayDate";
+                } else {
+                    newFieldsType = [newFieldsType stringByAppendingString:@"todayDate text primary key"];
+                    newFields = [newFields stringByAppendingString:@"'todayDate'"];
+                    oldFields = [oldFields stringByAppendingString:@"todayDate"];
+                }
+            } else {
+            
+                if ([addString hasPrefix:@"+"]) {
+                    
+                    NSString *newString = [addString substringWithRange:NSMakeRange(1, addString.length - 1)];
+                    if ([feildsArray.firstObject isEqualToString:addString]) {
+                        newFieldsType = [NSString stringWithFormat:@"%@ text", newString];
+                    } else {
+                        newFieldsType = [newFieldsType stringByAppendingString:[NSString stringWithFormat:@"%@ text", newString]];
+                    }
+                } else {
+                    
+                    if ([feildsArray.firstObject isEqualToString:addString]) {
+                        newFieldsType = [NSString stringWithFormat:@"%@ text", addString];
+                        newFields = [NSString stringWithFormat:@"'%@'", addString];
+                        oldFields = addString;
+                    } else {
+                        newFieldsType = [newFieldsType stringByAppendingString:[NSString stringWithFormat:@"%@ text", addString]];
+                        newFields = [newFields stringByAppendingString:[NSString stringWithFormat:@"'%@'", addString]];
+                        oldFields = [oldFields stringByAppendingString:addString];
+                    }
+                }
+                
+            }
+            
+            if (![feildsArray.lastObject isEqualToString:addString]) {
+                newFieldsType = [newFieldsType stringByAppendingString:@","];
+                newFields = [newFields stringByAppendingString:@","];
+                oldFields = [oldFields stringByAppendingString:@","];
+            }
+            
+        }
+        
+        NSLog(@"%@", UPDATE_TABEL(newFieldsType, newFields, oldFields));
+        
+        dispatch_barrier_sync(addFieldQueue, ^{
+            
+            [QDDataBaseTool updateStatementsSql:UPDATE_TABEL(newFieldsType, newFields, oldFields)
+                                 withParsmeters:nil
+                                          block:^(BOOL isOk, NSString *errorMsg) {
+                                              
+                                              if (!isOk) {
+                                                  finish = NO;
+                                                  NSLog(@"%@", errorMsg);
+                                              }
+                                              
+                                          }];
+            
+        });
+        
+        [activityView stopAnimating];
+        
+        if (finish) {
+            [userInfo setValue:dataBaseConfigure[@"version"] forKey:@"dataBaseVersion"];
+            NSLog(@"finish");
+        } else {
+            
+        }
+        
+        
+    }
+
     return YES;
 }
 

@@ -250,4 +250,57 @@
     
 }
 
++ (BOOL)holidayForOneDay:(NSString *)oneDay {
+    
+    BOOL isHoliday;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"YYYY-MM-dd";
+    
+    NSDate *date = [dateFormatter dateFromString:oneDay];
+    
+    NSCalendar * myCalendar = [NSCalendar currentCalendar];
+    myCalendar.timeZone = [NSTimeZone systemTimeZone];
+    NSInteger week = [[myCalendar components:NSCalendarUnitWeekday fromDate:date] weekday];
+    
+    NSDictionary *dayDict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"holiday" ofType:@"plist"]];
+    
+    if (week == 1 || week == 7) {//1:周日,7:周六
+        
+        isHoliday = YES;
+        
+        NSArray *workdayArray = dayDict[@"workDay"];
+        
+        for (NSString *obj in workdayArray) {
+            
+            if ([obj isEqualToString:oneDay]) {
+                
+                isHoliday = NO;
+                
+            }
+            
+        }
+        
+    } else {
+        
+        isHoliday = NO;
+        
+        NSArray *holidayArray = dayDict[@"holiday"];
+        
+        for (NSString *obj in holidayArray) {
+            
+            if ([obj isEqualToString:oneDay]) {
+                
+                isHoliday = YES;
+                
+            }
+            
+        }
+        
+    }
+    
+    return isHoliday;
+    
+}
+
 @end

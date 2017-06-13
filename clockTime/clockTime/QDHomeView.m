@@ -85,18 +85,32 @@
         
     }
     
+    if ([NSString holidayForOneDay:_sourceModel.todayDate]) {
+        [self.holidaySwitch setOn:YES];
+    } else {
+        [self.holidaySwitch setOn:NO];
+    }
+    
+//    if ([_sourceModel.isHoliday isEqualToString:@"YES"]) {
+//    } else {
+//    }
+    
     if ([_sourceModel.todayDate isEqualToString:[NSString stringForTimeStamp:@"YYYY-MM-dd"]]) {//若是今天
         
         self.signOutButton.enabled = YES;
+        self.holidaySwitch.enabled = YES;
         
     } else {
         
         self.signInButton.enabled = NO;
         self.signOutButton.enabled = NO;
+        self.holidaySwitch.enabled = NO;
         
     }
     
     [self vacationTimeInit];
+    
+    
     
 }
 

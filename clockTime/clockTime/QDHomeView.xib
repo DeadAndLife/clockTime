@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,29 +17,23 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当日累计存休" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COj-CG-SL6">
-                    <rect key="frame" x="142" y="50" width="92" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:53:54" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhE-Al-mMh">
-                    <rect key="frame" x="153" y="78" width="69" height="24"/>
+                    <rect key="frame" x="286" y="350" width="69" height="24"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tAT-Zg-cXI">
-                    <rect key="frame" x="151" y="543" width="73.5" height="24"/>
+                    <rect key="frame" x="281.5" y="391.5" width="73.5" height="24"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gT2-xG-ZTZ">
-                    <rect key="frame" x="92.5" y="303.5" width="60" height="60"/>
+                    <rect key="frame" x="95" y="219" width="60" height="60"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="60" id="Bnb-HZ-w16"/>
-                        <constraint firstAttribute="width" secondItem="gT2-xG-ZTZ" secondAttribute="height" id="Fgh-1u-FJ4"/>
+                        <constraint firstAttribute="width" secondItem="gT2-xG-ZTZ" secondAttribute="height" multiplier="1:1" id="P3r-O1-XFy"/>
+                        <constraint firstAttribute="height" constant="60" id="UFy-Jt-zRc"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="签到">
@@ -46,10 +41,10 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkC-8H-mUi">
-                    <rect key="frame" x="222.5" y="303.5" width="60" height="60"/>
+                    <rect key="frame" x="220" y="219" width="60" height="60"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="pkC-8H-mUi" secondAttribute="height" id="1Bu-Y6-olM"/>
-                        <constraint firstAttribute="width" constant="60" id="eLY-0d-DLJ"/>
+                        <constraint firstAttribute="height" constant="60" id="kfi-Sz-rNg"/>
+                        <constraint firstAttribute="width" secondItem="pkC-8H-mUi" secondAttribute="height" multiplier="1:1" id="xdU-B4-xt6"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="签退">
@@ -57,8 +52,29 @@
                     </state>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当日工作时长" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xE0-SK-eHM">
-                    <rect key="frame" x="142" y="515" width="92" height="18"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <rect key="frame" x="20" y="392.5" width="110.5" height="21.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yv5-Ib-GrF">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="211"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Yv5-Ib-GrF" secondAttribute="height" multiplier="16:9" id="I09-63-Uac"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="节假日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FuO-lU-1r3">
+                    <rect key="frame" x="20" y="309" width="55.5" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rAL-ix-AYj">
+                    <rect key="frame" x="306" y="304" width="51" height="31"/>
+                </switch>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当日累计存休" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="COj-CG-SL6">
+                    <rect key="frame" x="20" y="351" width="110.5" height="21.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -66,20 +82,28 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="lhE-Al-mMh" firstAttribute="centerX" secondItem="COj-CG-SL6" secondAttribute="centerX" id="7X2-xg-zO1"/>
-                <constraint firstItem="COj-CG-SL6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="EfA-25-NS9"/>
-                <constraint firstItem="pkC-8H-mUi" firstAttribute="centerY" secondItem="gT2-xG-ZTZ" secondAttribute="centerY" id="Gbe-cV-QEz"/>
-                <constraint firstItem="tAT-Zg-cXI" firstAttribute="top" secondItem="xE0-SK-eHM" secondAttribute="bottom" constant="10" id="HOL-Wh-zAX"/>
-                <constraint firstItem="pkC-8H-mUi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="65" id="JpK-7I-Q7i"/>
-                <constraint firstAttribute="bottom" secondItem="tAT-Zg-cXI" secondAttribute="bottom" constant="100" id="MAd-D7-dCv"/>
-                <constraint firstItem="xE0-SK-eHM" firstAttribute="centerX" secondItem="COj-CG-SL6" secondAttribute="centerX" id="esF-LB-xaF"/>
-                <constraint firstItem="COj-CG-SL6" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="juD-Ex-w30"/>
-                <constraint firstItem="gT2-xG-ZTZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-65" id="olx-Az-7ZG"/>
-                <constraint firstItem="gT2-xG-ZTZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uyW-8W-LkM"/>
-                <constraint firstItem="tAT-Zg-cXI" firstAttribute="centerX" secondItem="COj-CG-SL6" secondAttribute="centerX" id="vCk-iu-WLJ"/>
-                <constraint firstItem="lhE-Al-mMh" firstAttribute="top" secondItem="COj-CG-SL6" secondAttribute="bottom" constant="10" id="zDR-Jt-MIK"/>
+                <constraint firstItem="COj-CG-SL6" firstAttribute="leading" secondItem="FuO-lU-1r3" secondAttribute="leading" id="5eH-xc-uxm"/>
+                <constraint firstItem="gT2-xG-ZTZ" firstAttribute="top" secondItem="Yv5-Ib-GrF" secondAttribute="bottom" constant="8" id="5lX-Oy-971"/>
+                <constraint firstItem="xE0-SK-eHM" firstAttribute="leading" secondItem="COj-CG-SL6" secondAttribute="leading" id="5sm-dl-oU9"/>
+                <constraint firstItem="Yv5-Ib-GrF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Cgc-5d-T3p"/>
+                <constraint firstAttribute="trailing" secondItem="Yv5-Ib-GrF" secondAttribute="trailing" id="HW4-nv-TZz"/>
+                <constraint firstAttribute="trailing" secondItem="rAL-ix-AYj" secondAttribute="trailing" constant="20" id="LZu-r4-UYN"/>
+                <constraint firstItem="Yv5-Ib-GrF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Lno-6A-o6v"/>
+                <constraint firstItem="xE0-SK-eHM" firstAttribute="top" secondItem="COj-CG-SL6" secondAttribute="bottom" constant="20" id="O6J-nU-G94"/>
+                <constraint firstItem="COj-CG-SL6" firstAttribute="top" secondItem="FuO-lU-1r3" secondAttribute="bottom" constant="20" id="OCr-uF-SsV"/>
+                <constraint firstItem="lhE-Al-mMh" firstAttribute="centerY" secondItem="COj-CG-SL6" secondAttribute="centerY" id="XwI-Do-Io1"/>
+                <constraint firstItem="tAT-Zg-cXI" firstAttribute="trailing" secondItem="lhE-Al-mMh" secondAttribute="trailing" id="Y5Z-vq-MNN"/>
+                <constraint firstItem="FuO-lU-1r3" firstAttribute="top" secondItem="gT2-xG-ZTZ" secondAttribute="bottom" constant="30" id="bBd-Uk-gTf"/>
+                <constraint firstItem="rAL-ix-AYj" firstAttribute="centerY" secondItem="FuO-lU-1r3" secondAttribute="centerY" id="p3N-D2-TRY"/>
+                <constraint firstItem="gT2-xG-ZTZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="2:3" id="qOn-gv-DCO"/>
+                <constraint firstItem="tAT-Zg-cXI" firstAttribute="centerY" secondItem="xE0-SK-eHM" secondAttribute="centerY" id="rOH-PU-MZo"/>
+                <constraint firstItem="pkC-8H-mUi" firstAttribute="top" secondItem="Yv5-Ib-GrF" secondAttribute="bottom" constant="8" id="sFn-Q1-tlB"/>
+                <constraint firstItem="pkC-8H-mUi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="4:3" id="tZT-pv-9YI"/>
+                <constraint firstItem="FuO-lU-1r3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="w2n-AA-Rv5"/>
+                <constraint firstItem="lhE-Al-mMh" firstAttribute="trailing" secondItem="rAL-ix-AYj" secondAttribute="trailing" id="x5A-fZ-3sT"/>
             </constraints>
             <connections>
+                <outlet property="holidaySwitch" destination="rAL-ix-AYj" id="hP4-ii-DFR"/>
                 <outlet property="panGestureRecognizer" destination="5V9-zd-0jX" id="ren-EJ-job"/>
                 <outlet property="signInButton" destination="gT2-xG-ZTZ" id="AC2-rB-y9O"/>
                 <outlet property="signOutButton" destination="pkC-8H-mUi" id="ksd-IB-ByS"/>

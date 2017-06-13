@@ -17,6 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *signOutButton;
 
+@property (weak, nonatomic) IBOutlet UISwitch *holidaySwitch;
+
 @property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *swipeGestureRecognizer;
 
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;

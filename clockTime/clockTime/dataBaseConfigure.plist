@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   dataBaseConfigure.plist
-   clockTime
-
-   Created by iOSDeveloper on 2017/6/1.
-   Copyright (c) 2017年 iOSDeveloper. All rights reserved.
--->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-    
-    </dict>
+<dict>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>updateField</key>
+	<array>
+		<string>todayDate</string>
+		<string>signInTime</string>
+		<string>signOutTime</string>
+		<string>workDuration</string>
+		<string>vacationTime</string>
+		<string>knockOffTime</string>
+	</array>
+</dict>
 </plist>

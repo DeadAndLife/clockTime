@@ -10,7 +10,7 @@
 
 @interface QDModel : NSObject
 
-//日期
+//日期    YYYY-MM-dd
 @property (nonatomic, copy) NSString *todayDate;
 
 //签到时间
@@ -27,6 +27,9 @@
 
 //理论下班时间
 @property (nonatomic, copy) NSString *knockOffTime;
+
+//是否节假日
+@property (nonatomic, copy) NSString *isHoliday;
 
 + (instancetype)qiandaoModelWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

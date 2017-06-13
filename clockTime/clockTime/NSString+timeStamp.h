@@ -64,4 +64,12 @@
 
 - (NSString *)durationString;
 
+/**
+ 某天是否为节假日，周一至周五请求假日，周末请求工作日
+
+ @param oneDay 日期格式为YYYY-MM-dd
+ @return 返回结果   yes为假日，no为工作日
+ */
++ (BOOL)holidayForOneDay:(NSString *)oneDay;
+
 @end

@@ -159,6 +159,8 @@
         [self.homeView.signInButton addTarget:self action:@selector(signInButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.homeView.signOutButton addTarget:self action:@selector(signOutButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
+        [self.homeView.holidaySwitch addTarget:self action:@selector(holidaySwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
+        
         [self.homeView.swipeGestureRecognizer addTarget:self action:@selector(swipeGestureAction:)];
         [self.homeView.panGestureRecognizer addTarget:self action:@selector(panGestureAction:)];
         
@@ -451,6 +453,8 @@
 
     [dict setValue:@"0" forKey:kKnockOffTime];
     
+    [dict setValue:self.homeView.holidaySwitch.on ? @"YES" : @"NO" forKey:kIsHoliday];
+    
     [QDDataBaseTool updateStatementsSql:INSERT_SQL
                          withParsmeters:dict
                                   block:^(BOOL isOk, NSString *errorMsg) {
@@ -505,7 +509,9 @@
 
     }
     
-    [QDDataBaseTool updateStatementsSql:UPDATE_SQL(signOutTime, workDuration, vacationTime, self.todayDate)
+    NSString *isHoliday = self.homeView.holidaySwitch.on ? @"YES" : @"NO";
+    
+    [QDDataBaseTool updateStatementsSql:UPDATE_SQL(signOutTime, workDuration, vacationTime, isHoliday, self.todayDate)
                          withParsmeters:nil
                                   block:^(BOOL isOk, NSString *errorMsg) {
                                      
@@ -514,6 +520,7 @@
                                           weakSelf.todayModel.signOutTime = signOutTime;
                                           weakSelf.todayModel.workDuration = workDuration;
                                           weakSelf.todayModel.vacationTime = vacationTime;
+                                          weakSelf.todayModel.isHoliday = isHoliday;
                                           
                                           [weakSelf updateHomeView];
                                           
@@ -524,6 +531,20 @@
                                       }
                                       
                                   }];
+    
+}
+
+- (IBAction)holidaySwitchValueChanged:(UISwitch *)sender {
+    
+    if (sender.on) {
+        
+        self.todayModel.isHoliday = @"YES";
+        
+    } else {
+        
+        self.todayModel.isHoliday = @"NO";
+        
+    }
     
 }
 

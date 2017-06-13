@@ -20,6 +20,12 @@
  */
 #define colRGB(R,G,B,A) [UIColor colorWithRed:R / 256.0 green:G / 256.0 blue:B / 256.0 alpha:A]
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...) fprintf(stderr,"%s\n",[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...)
+#endif
+
 #import "QDDataBaseTool.h"
 
 //typedef struct _TimeRange {
@@ -40,6 +46,9 @@ static NSString * const kSignOutTime = @"signOutTime";//签退时间
 static NSString * const kWorkDuration = @"workDuration";//今日工作时长
 static NSString * const kVacationTime = @"vacationTime";//当前存休时长
 static NSString * const kKnockOffTime = @"knockOffTime";//理论下班时间
+
+//version 1.0.1
+static NSString * const kIsHoliday = @"isHoliday";//是否节假日
 
 #import "UserDefaultsManager.h"
 #import "NSString+timeStamp.h"
